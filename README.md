@@ -91,4 +91,4 @@ Follow these steps to run Livora locally.
 ## 📜 License & Acknowledgements
 
 - Designed and developed for the Livora Professional Network.
-- Built with ❤️ using Flutter and Firebase.
+- Built with ❤️ using Flutter by Harshitha.
