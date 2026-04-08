@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../core/widgets/custom_card.dart';
-import '../../../organizations/domain/entities/organization.dart';
-import '../../../organizations/presentation/providers/organization_providers.dart';
-import '../../../organizations/presentation/screens/org_profile_screen.dart';
+import 'package:Livora/core/widgets/custom_card.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
+import 'package:Livora/features/organizations/presentation/providers/organization_providers.dart';
+import 'package:Livora/features/organizations/presentation/screens/org_profile_screen.dart';
 
 class FavoriteOrgsScreen extends ConsumerWidget {
   final List<String> orgIds;
 
-  const FavoriteOrgsScreen({Key? key, required this.orgIds}) : super(key: key);
+  const FavoriteOrgsScreen({super.key, required this.orgIds});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Favorite Organizations'),
       ),
@@ -50,7 +51,7 @@ class FavoriteOrgsScreen extends ConsumerWidget {
 class _OrgListTile extends StatelessWidget {
   final Organization org;
 
-  const _OrgListTile({Key? key, required this.org}) : super(key: key);
+  const _OrgListTile({required this.org});
 
   @override
   Widget build(BuildContext context) {

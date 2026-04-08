@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../animations/animation_constants.dart';
+import 'package:Livora/core/theme/color_palette.dart';
+import 'package:Livora/core/animations/animation_constants.dart';
 
 // 1. Fade In Up Animation (for page sections/cards)
 class FadeInUp extends StatefulWidget {
@@ -9,12 +10,12 @@ class FadeInUp extends StatefulWidget {
   final double offset;
 
   const FadeInUp({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = AppAnimations.durationMedium,
     this.delay = Duration.zero,
     this.offset = 30.0,
-  }) : super(key: key);
+  });
 
   @override
   State<FadeInUp> createState() => _FadeInUpState();
@@ -76,10 +77,10 @@ class AnimatedScaleButton extends StatefulWidget {
   final VoidCallback onTap;
 
   const AnimatedScaleButton({
-    Key? key,
+    super.key,
     required this.child,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   State<AnimatedScaleButton> createState() => _AnimatedScaleButtonState();
@@ -128,14 +129,14 @@ class StaggeredList extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
 
   const StaggeredList({
-    Key? key,
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     this.delay = AppAnimations.staggerDelay,
     this.scrollDirection = Axis.vertical,
     this.physics = const NeverScrollableScrollPhysics(),
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -161,10 +162,10 @@ class PulsingBadge extends StatefulWidget {
   final Color glowColor;
 
   const PulsingBadge({
-    Key? key,
+    super.key,
     required this.child,
-    this.glowColor = Colors.red,
-  }) : super(key: key);
+    this.glowColor = ColorPalette.livoraRed,
+  });
 
   @override
   State<PulsingBadge> createState() => _PulsingBadgeState();
@@ -180,14 +181,14 @@ class _PulsingBadgeState extends State<PulsingBadge> with SingleTickerProviderSt
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 2000),
     )..repeat();
 
-    _scale = Tween<double>(begin: 1.0, end: 1.4).animate(
+    _scale = Tween<double>(begin: 1.0, end: 1.2).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
     
-    _opacity = Tween<double>(begin: 0.6, end: 0.0).animate(
+    _opacity = Tween<double>(begin: 0.4, end: 0.0).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
   }
@@ -213,10 +214,8 @@ class _PulsingBadgeState extends State<PulsingBadge> with SingleTickerProviderSt
                   shape: BoxShape.circle, 
                   color: widget.glowColor.withOpacity(_opacity.value),
                 ),
-                width: 300, // This is tricky, might overflow. 
-                            // Better approach for generic widget: CustomPainter or strict sizing.
-                            // For simplicity, let's just make it a glow behind the child.
-                height: 50,
+                width: 60, 
+                height: 60,
               ),
             );
           },
@@ -232,7 +231,7 @@ class PulsingDot extends StatefulWidget {
   final Color color;
   final double size;
 
-  const PulsingDot({Key? key, this.color = Colors.red, this.size = 10}) : super(key: key);
+  const PulsingDot({super.key, this.color = ColorPalette.livoraRed, this.size = 8});
 
   @override
   State<PulsingDot> createState() => _PulsingDotState();
@@ -248,11 +247,11 @@ class _PulsingDotState extends State<PulsingDot> with SingleTickerProviderStateM
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 2),
     )..repeat();
     
-    _scale = Tween<double>(begin: 1.0, end: 2.0).animate(_controller);
-    _opacity = Tween<double>(begin: 0.8, end: 0.0).animate(_controller);
+    _scale = Tween<double>(begin: 1.0, end: 2.5).animate(_controller);
+    _opacity = Tween<double>(begin: 0.6, end: 0.0).animate(_controller);
   }
 
   @override
@@ -275,7 +274,7 @@ class _PulsingDotState extends State<PulsingDot> with SingleTickerProviderStateM
               height: widget.size,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: widget.color,
+                border: Border.all(color: widget.color.withOpacity(0.8), width: 1),
               ),
             ),
           ),
@@ -286,6 +285,9 @@ class _PulsingDotState extends State<PulsingDot> with SingleTickerProviderStateM
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: widget.color,
+            boxShadow: [
+              BoxShadow(color: widget.color.withOpacity(0.5), blurRadius: 4),
+            ],
           ),
         ),
       ],
@@ -301,12 +303,12 @@ class ScaleFadeIn extends StatefulWidget {
   final double initialScale;
 
   const ScaleFadeIn({
-    Key? key,
+    super.key,
     required this.child,
     this.duration = AppAnimations.durationShort, // Cards should be snappy
     this.delay = Duration.zero,
     this.initialScale = 0.95,
-  }) : super(key: key);
+  });
 
   @override
   State<ScaleFadeIn> createState() => _ScaleFadeInState();

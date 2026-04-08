@@ -1,6 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../domain/entities/organization.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
 
 abstract class OrganizationRemoteDataSource {
   Future<List<Organization>> getOrganizations();
@@ -52,18 +52,9 @@ class OrganizationRemoteDataSourceImpl implements OrganizationRemoteDataSource {
   }
 
   Organization _fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return Organization(
-      id: doc.id,
-      name: data['name'] ?? '',
-      address: data['address'] ?? '',
-      phone: data['phone'] ?? '',
-      email: data['email'] ?? '',
-      contactPerson: data['contactPerson'] ?? '',
-      youtubeLiveUrl: data['youtubeLiveUrl'],
-      facebookLiveUrl: data['facebookLiveUrl'],
-      isLive: data['isLive'] ?? false,
-      subscribers: List<String>.from(data['subscribers'] ?? []),
+    return Organization.fromFirestore(
+      doc.data() as Map<String, dynamic>,
+      doc.id,
     );
   }
 }

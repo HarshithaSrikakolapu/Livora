@@ -10,6 +10,9 @@ class AppConfig {
   static const String accessTokenKey = 'access_token';
   static const String refreshTokenKey = 'refresh_token';
   static const String userDataKey = 'user_data';
+  static const String userIdKey = 'user_id';
+  static const String userRoleKey = 'user_role';
+
   
   // Pagination
   static const int defaultPageSize = 20;

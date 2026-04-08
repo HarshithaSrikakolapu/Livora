@@ -1,8 +1,8 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:edirectory_app/features/social/presentation/widgets/user_avatar.dart';
+import 'package:Livora/features/social/presentation/widgets/user_avatar.dart';
 import 'package:flutter/material.dart';
-import '../../../../core/theme/color_palette.dart'; 
+import 'package:Livora/core/theme/color_palette.dart'; 
 
 class ProfileHeader extends StatelessWidget {
   final String userName;
@@ -13,14 +13,14 @@ class ProfileHeader extends StatelessWidget {
   final Widget? actionButton;
 
   const ProfileHeader({
-    Key? key,
+    super.key,
     required this.userName,
     this.avatarUrl,
     this.coverImageUrl,
     this.bio,
     this.stats = const {},
     this.actionButton,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

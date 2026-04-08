@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../../../../core/theme/color_palette.dart';
+import 'package:Livora/core/theme/color_palette.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? avatarUrl;
@@ -11,13 +11,13 @@ class UserAvatar extends StatelessWidget {
   final VoidCallback? onTap;
 
   const UserAvatar({
-    Key? key,
+    super.key,
     this.avatarUrl,
     required this.userName,
     this.radius = 20,
     this.enableHero = true,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

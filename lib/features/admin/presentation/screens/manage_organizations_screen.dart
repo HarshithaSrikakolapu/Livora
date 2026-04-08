@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../features/organizations/domain/entities/organization.dart';
-import '../providers/admin_providers.dart';
-import '../../../organizations/presentation/screens/org_profile_screen.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
+import 'package:Livora/features/admin/presentation/providers/admin_providers.dart';
+import 'package:Livora/features/organizations/presentation/screens/org_profile_screen.dart';
 
 class ManageOrganizationsScreen extends ConsumerStatefulWidget {
-  const ManageOrganizationsScreen({Key? key}) : super(key: key);
+  const ManageOrganizationsScreen({super.key});
 
   @override
   ConsumerState<ManageOrganizationsScreen> createState() => _ManageOrganizationsScreenState();
@@ -26,6 +26,7 @@ class _ManageOrganizationsScreenState extends ConsumerState<ManageOrganizationsS
     final orgsAsync = ref.watch(allAdminOrganizationsProvider(_searchQuery));
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Manage Organizations'),
       ),

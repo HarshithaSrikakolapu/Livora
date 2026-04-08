@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../domain/entities/user_profile.dart';
+import 'package:Livora/features/profile/domain/entities/user_profile.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<UserProfile?> getUserProfile(String uid);
@@ -25,12 +25,14 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     await firestore.collection('users').doc(profile.id).set(_toFirestore(profile), SetOptions(merge: true));
   }
 
+  @override
   Future<void> addFavoriteOrg(String userId, String orgId) async {
     await firestore.collection('users').doc(userId).update({
       'favorite_orgs': FieldValue.arrayUnion([orgId])
     });
   }
 
+  @override
   Future<void> removeFavoriteOrg(String userId, String orgId) async {
     await firestore.collection('users').doc(userId).update({
       'favorite_orgs': FieldValue.arrayRemove([orgId])
@@ -41,11 +43,12 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
     final data = doc.data() as Map<String, dynamic>;
     return UserProfile(
       id: doc.id,
-      name: data['name'] ?? '',
+      name: data['fullName'] ?? data['name'] ?? '',
       email: data['email'] ?? '',
       role: data['role'] ?? 'user',
-      profilePhoto: data['profile_photo'],
+      profilePhoto: data['avatarUrl'] ?? data['profile_photo'],
       bio: data['bio'],
+      phone: data['phone'],
       followers: List<String>.from(data['followers'] ?? []),
       favoriteOrgs: List<String>.from(data['favorite_orgs'] ?? []),
     );
@@ -53,11 +56,12 @@ class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
 
   Map<String, dynamic> _toFirestore(UserProfile profile) {
     return {
-      'name': profile.name,
+      'fullName': profile.name,
       'email': profile.email,
       'role': profile.role,
-      'profile_photo': profile.profilePhoto,
+      'avatarUrl': profile.profilePhoto,
       'bio': profile.bio,
+      'phone': profile.phone,
       'followers': profile.followers,
       'favorite_orgs': profile.favoriteOrgs,
     };

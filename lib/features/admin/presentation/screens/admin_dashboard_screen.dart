@@ -4,16 +4,17 @@ import 'pending_approvals_screen.dart';
 import 'manage_users_screen.dart';
 import 'manage_organizations_screen.dart';
 import 'admin_settings_screen.dart';
-import '../../../../core/widgets/animated_widgets.dart';
-import '../../../../core/widgets/custom_card.dart';
-import '../../../../core/theme/color_palette.dart';
+import 'package:Livora/core/widgets/animated_widgets.dart';
+import 'package:Livora/core/widgets/custom_card.dart';
+import 'package:Livora/core/theme/color_palette.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
-  const AdminDashboardScreen({Key? key}) : super(key: key);
+  const AdminDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Admin Dashboard'),
       ),

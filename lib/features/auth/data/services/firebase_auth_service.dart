@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../domain/entities/user.dart' as app_user;
+import 'package:flutter/foundation.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart' as app_user;
 
 class FirebaseAuthService {
   final firebase_auth.FirebaseAuth _auth = firebase_auth.FirebaseAuth.instance;
@@ -118,18 +119,30 @@ class FirebaseAuthService {
     final user = _auth.currentUser;
     if (user == null) return null;
     
+    print('DEBUG: Fetching user data for UID: ${user.uid}');
     final doc = await _firestore.collection('users').doc(user.uid).get();
-    if (!doc.exists) return null;
+    if (!doc.exists) {
+      print('DEBUG: User doc does not exist for UID: ${user.uid}');
+      return null;
+    }
     
-    return app_user.User.fromFirestore(doc.data()!, doc.id);
+    final data = doc.data()!;
+    print('DEBUG: Data fetched: $data');
+    return app_user.User.fromFirestore(data, doc.id);
   }
   
   // Send password reset email
   Future<void> sendPasswordResetEmail(String email) async {
+    debugPrint('DEBUG: Attempting to send password reset email to: $email');
     try {
       await _auth.sendPasswordResetEmail(email: email);
+      debugPrint('DEBUG: Firebase reported success for password reset email to: $email');
     } on firebase_auth.FirebaseAuthException catch (e) {
+      debugPrint('DEBUG: Firebase Auth Exception during password reset: ${e.code} - ${e.message}');
       throw _handleAuthException(e);
+    } catch (e) {
+      debugPrint('DEBUG: Unexpected error during password reset: $e');
+      rethrow;
     }
   }
   

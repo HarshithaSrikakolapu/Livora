@@ -1,4 +1,4 @@
-import '../entities/user_profile.dart';
+import 'package:Livora/features/profile/domain/entities/user_profile.dart';
 
 abstract class ProfileRepository {
   Future<UserProfile?> getUserProfile(String uid);

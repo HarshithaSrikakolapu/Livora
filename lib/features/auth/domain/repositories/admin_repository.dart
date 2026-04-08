@@ -1,7 +1,8 @@
-import '../../domain/entities/app_user.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart';
 
 abstract class AdminRepository {
-  Future<List<AppUser>> getPendingUsers();
+  Future<List<User>> getPendingUsers();
   Future<void> approveUser(String userId);
   Future<void> deactivateUser(String userId);
 }
+

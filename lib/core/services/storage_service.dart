@@ -1,9 +1,7 @@
-import 'dart:io';
-import 'dart:typed_data';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:path/path.dart' as path;
 
 class StorageService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -17,14 +15,30 @@ class StorageService {
       final fileName = '${DateTime.now().millisecondsSinceEpoch}_$pathOrName';
       final ref = _storage.ref().child('$folder/$fileName');
       
+      debugPrint('DEBUG: Starting putData to ${ref.fullPath} (Size: ${data.length} bytes)');
+      
       final metadata = SettableMetadata(
         contentType: 'image/jpeg',
         customMetadata: {'uploaded_by': 'user_app'},
       );
 
-      await ref.putData(data, metadata);
-      return await ref.getDownloadURL();
+      final uploadTask = ref.putData(data, metadata);
+      
+      // Monitor progress
+      uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
+        debugPrint('DEBUG: Upload progress: ${snapshot.bytesTransferred}/${snapshot.totalBytes}');
+      });
+
+      await uploadTask;
+      debugPrint('DEBUG: putData completed successfully');
+      
+      debugPrint('DEBUG: Fetching download URL...');
+      final url = await ref.getDownloadURL();
+      debugPrint('DEBUG: Download URL obtained: $url');
+      
+      return url;
     } catch (e) {
+      debugPrint('DEBUG: Storage Error: $e');
       throw Exception('Failed to upload image: $e');
     }
   }

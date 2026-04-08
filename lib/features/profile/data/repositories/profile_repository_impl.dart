@@ -1,7 +1,7 @@
-import '../../domain/entities/user_profile.dart';
-import '../../domain/repositories/profile_repository.dart';
-import '../datasources/profile_remote_data_source.dart';
-import '../../../organizations/data/datasources/organization_remote_data_source.dart';
+import 'package:Livora/features/profile/domain/entities/user_profile.dart';
+import 'package:Livora/features/profile/domain/repositories/profile_repository.dart';
+import 'package:Livora/features/profile/data/datasources/profile_remote_data_source.dart';
+import 'package:Livora/features/organizations/data/datasources/organization_remote_data_source.dart';
 
 class ProfileRepositoryImpl implements ProfileRepository {
   final ProfileRemoteDataSource remoteDataSource;

@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../auth/domain/entities/user.dart';
-import '../../../organizations/domain/entities/organization.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
 
 // Provider for Pending Users
 final pendingUsersProvider = FutureProvider.autoDispose<List<User>>((ref) async {

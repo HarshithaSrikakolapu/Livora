@@ -1,4 +1,4 @@
-package com.edirectory.edirectory_app
+package com.edirectory.livora
 
 import io.flutter.embedding.android.FlutterActivity
 

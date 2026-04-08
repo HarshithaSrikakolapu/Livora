@@ -2,21 +2,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import '../../data/datasources/social_remote_data_source.dart';
-import '../../data/repositories/social_repository_impl.dart';
-import '../../domain/repositories/social_repository.dart';
-import '../../domain/usecases/post_usecases.dart';
-import '../../domain/usecases/connection_usecases.dart';
-import '../../domain/usecases/get_user_profile.dart'; // Import
-import '../../domain/usecases/update_user_profile.dart'; // Import
-import '../../domain/usecases/toggle_like_post.dart'; // Import
-import '../../domain/entities/post.dart';
-import '../../domain/entities/comment.dart'; // Import
-import '../../domain/entities/relationship.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../../auth/presentation/providers/auth_state.dart';
-import '../../../auth/domain/entities/user.dart'; // Import User
-
+import 'package:Livora/features/social/data/datasources/social_remote_data_source.dart';
+import 'package:Livora/features/social/data/repositories/social_repository_impl.dart';
+import 'package:Livora/features/social/domain/repositories/social_repository.dart';
+import 'package:Livora/features/social/domain/usecases/post_usecases.dart';
+import 'package:Livora/features/social/domain/usecases/connection_usecases.dart';
+import 'package:Livora/features/social/domain/usecases/get_user_profile.dart'; // Import
+import 'package:Livora/features/social/domain/usecases/update_user_profile.dart'; // Import
+import 'package:Livora/features/social/domain/usecases/toggle_like_post.dart'; // Import
+import 'package:Livora/features/social/domain/entities/post.dart';
+import 'package:Livora/features/social/domain/entities/comment.dart'; // Import
+import 'package:Livora/features/social/domain/entities/relationship.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart'; // Import User
+import 'package:Livora/features/social/domain/usecases/remove_connection.dart';
 // --- Data Layer ---
 final socialRemoteDataSourceProvider = Provider<SocialRemoteDataSource>((ref) {
   return SocialRemoteDataSourceImpl(
@@ -28,7 +28,8 @@ final socialRemoteDataSourceProvider = Provider<SocialRemoteDataSource>((ref) {
 final socialRepositoryProvider = Provider<SocialRepository>((ref) {
   return SocialRepositoryImpl(ref.watch(socialRemoteDataSourceProvider));
 });
-
+final removeConnectionProvider =
+    Provider((ref) => RemoveConnection(ref.watch(socialRepositoryProvider)));
 // --- Domain Layer (Use Cases) ---
 
 // Posts
@@ -91,3 +92,5 @@ final connectionStatusProvider = FutureProvider.autoDispose.family<Relationship?
 final userProfileFutureProvider = FutureProvider.autoDispose.family<User?, String>((ref, userId) {
   return ref.watch(getUserProfileProvider).call(userId);
 });
+
+

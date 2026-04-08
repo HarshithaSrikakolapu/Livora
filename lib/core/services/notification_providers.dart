@@ -1,9 +1,9 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../features/auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../features/auth/presentation/providers/auth_state.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
 import 'notification_service.dart';
-import '../storage/secure_storage.dart';
+import 'package:Livora/core/storage/secure_storage.dart';
 
 final notificationServiceProvider = Provider<NotificationService>((ref) {
   final secureStorage = ref.watch(secureStorageProvider);

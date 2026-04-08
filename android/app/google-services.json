@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "531362834016",
+    "project_id": "edirectory-ecfcf",
+    "storage_bucket": "edirectory-ecfcf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531362834016:android:c54fd4441ac2006921c505",
+        "android_client_info": {
+          "package_name": "com.edirectory.livora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531362834016-dt00cslhgmft7rmutrqljvluip6rqms9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2z3rtfsV5-DvgyLxAgdF_IQbTCwE_XOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531362834016-dt00cslhgmft7rmutrqljvluip6rqms9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

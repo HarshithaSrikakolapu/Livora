@@ -11,6 +11,7 @@ class Organization {
   final String? youtubeLiveUrl;
   final String? facebookLiveUrl;
   final bool isLive;
+  final String? description;
   final List<String> subscribers;
 
   Organization({
@@ -25,6 +26,7 @@ class Organization {
     this.youtubeLiveUrl,
     this.facebookLiveUrl,
     this.isLive = false,
+    this.description,
     this.subscribers = const [],
   });
 
@@ -40,6 +42,7 @@ class Organization {
       contactPerson: json['contactPerson'] ?? '',
       youtubeLiveUrl: json['youtubeLiveUrl'],
       facebookLiveUrl: json['facebookLiveUrl'],
+      description: json['description'],
       isLive: json['isLive'] ?? false,
       subscribers: List<String>.from(json['subscribers'] ?? []),
     );
@@ -57,6 +60,7 @@ class Organization {
       contactPerson: data['contactPerson'] ?? '',
       youtubeLiveUrl: data['youtubeLiveUrl'],
       facebookLiveUrl: data['facebookLiveUrl'],
+      description: data['description'],
       isLive: data['isLive'] ?? false,
       subscribers: List<String>.from(data['subscribers'] ?? []),
     );
@@ -74,6 +78,7 @@ class Organization {
       'youtubeLiveUrl': youtubeLiveUrl,
       'facebookLiveUrl': facebookLiveUrl,
       'isLive': isLive,
+      'description': description,
       'subscribers': subscribers,
     };
   }
@@ -91,6 +96,7 @@ class Organization {
       'youtubeLiveUrl': youtubeLiveUrl,
       'facebookLiveUrl': facebookLiveUrl,
       'isLive': isLive,
+      'description': description,
       'subscribers': subscribers,
     };
   }

@@ -1,0 +1,301 @@
+﻿Resolving dependencies...
+Downloading packages...
+  _fe_analyzer_shared 67.0.0 (96.0.0 available)
+  _flutterfire_internals 1.3.59 (1.3.66 available)
+  analyzer 6.4.1 (10.2.0 available)
+  analyzer_plugin 0.11.3 (0.14.4 available)
+  build 2.4.1 (4.0.4 available)
+  build_config 1.1.2 (1.2.0 available)
+  build_resolvers 2.4.2 (3.0.4 available)
+  build_runner 2.4.13 (2.11.1 available)
+  build_runner_core 7.3.2 (9.3.2 available)
+  built_value 8.12.3 (8.12.4 available)
+  characters 1.4.0 (1.4.1 available)
+  cloud_firestore 5.6.12 (6.1.2 available)
+  cloud_firestore_platform_interface 6.6.12 (7.0.6 available)
+  cloud_firestore_web 4.4.12 (5.1.2 available)
+  cross_file 0.3.5+1 (0.3.5+2 available)
+  custom_lint_core 0.6.3 (0.8.2 available)
+  dart_style 2.3.6 (3.1.5 available)
+  dbus 0.7.11 (0.7.12 available)
+  dio 5.9.0 (5.9.1 available)
+  ffi 2.1.5 (2.2.0 available)
+  firebase_auth 5.7.0 (6.1.4 available)
+  firebase_auth_platform_interface 7.7.3 (8.1.6 available)
+  firebase_auth_web 5.15.3 (6.1.2 available)
+  firebase_core 3.15.2 (4.4.0 available)
+  firebase_core_web 2.24.1 (3.4.0 available)
+  firebase_messaging 15.2.10 (16.1.1 available)
+  firebase_messaging_platform_interface 4.6.10 (4.7.6 available)
+  firebase_messaging_web 3.10.10 (4.1.2 available)
+  firebase_storage 12.4.10 (13.0.6 available)
+  firebase_storage_platform_interface 5.2.10 (5.2.17 available)
+  firebase_storage_web 3.10.17 (3.11.2 available)
+  flutter_local_notifications 19.5.0 (20.1.0 available)
+  flutter_local_notifications_linux 6.0.0 (7.0.0 available)
+  flutter_local_notifications_platform_interface 9.1.0 (10.0.0 available)
+  flutter_local_notifications_windows 1.0.3 (2.0.1 available)
+  flutter_riverpod 2.6.1 (3.2.1 available)
+  flutter_secure_storage 9.2.4 (10.0.0 available)
+  flutter_secure_storage_linux 1.2.3 (3.0.0 available)
+  flutter_secure_storage_macos 3.1.3 (4.0.0 available)
+  flutter_secure_storage_platform_interface 1.1.2 (2.0.1 available)
+  flutter_secure_storage_web 1.2.1 (2.1.0 available)
+  flutter_secure_storage_windows 3.1.2 (4.1.0 available)
+  freezed_annotation 2.4.4 (3.1.0 available)
+  go_router 13.2.5 (17.1.0 available)
+  google_fonts 8.0.0 (8.0.2 available)
+  hooks 1.0.0 (1.0.1 available)
+  image_picker_android 0.8.13+12 (0.8.13+14 available)
+  image_picker_ios 0.8.13+3 (0.8.13+6 available)
+  intl 0.19.0 (0.20.2 available)
+  js 0.6.7 (0.7.2 available)
+  json_annotation 4.9.0 (4.11.0 available)
+  lints 6.0.0 (6.1.0 available)
+  matcher 0.12.17 (0.12.18 available)
+  material_color_utilities 0.11.1 (0.13.0 available)
+  meta 1.17.0 (1.18.1 available)
+  objective_c 9.2.3 (9.3.0 available)
+  petitparser 7.0.1 (7.0.2 available)
+  riverpod 2.6.1 (3.2.1 available)
+  riverpod_analyzer_utils 0.5.1 (0.5.10 available)
+  riverpod_annotation 2.6.1 (4.0.2 available)
+  riverpod_generator 2.4.0 (4.0.3 available)
+  shared_preferences_android 2.4.18 (2.4.20 available)
+  shelf_web_socket 2.0.1 (3.0.0 available)
+  source_gen 1.5.0 (4.2.0 available)
+  source_helper 1.3.5 (1.3.10 available)
+  source_span 1.10.1 (1.10.2 available)
+  test_api 0.7.7 (0.7.9 available)
+  timezone 0.10.1 (0.11.0 available)
+  url_launcher_ios 6.3.6 (6.4.1 available)
+  uuid 4.5.2 (4.5.3 available)
+  win32 5.15.0 (6.0.0 available)
+Got dependencies!
+71 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+Analyzing livora...                                     
+
+   info - Parameter 'key' could be a super parameter - lib\core\animations\page_transition_wrapper.dart:9:9 - use_super_parameters
+   info - Don't invoke 'print' in production code - lib\core\services\notification_providers.dart:18:5 - avoid_print
+warning - Unused import: 'lib/features/auth/domain/entities/user.dart' - lib\core\services\notification_service.dart:6:8 - unused_import
+   info - Don't invoke 'print' in production code - lib\core\services\notification_service.dart:11:3 - avoid_print
+   info - Don't invoke 'print' in production code - lib\core\services\notification_service.dart:34:7 - avoid_print
+warning - The value of the local variable 'user' isn't used - lib\core\services\notification_service.dart:108:13 - unused_local_variable
+   info - Don't invoke 'print' in production code - lib\core\services\notification_service.dart:112:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\core\services\notification_service.dart:128:8 - avoid_print
+   info - Don't invoke 'print' in production code - lib\core\services\notification_service.dart:130:8 - avoid_print
+   info - The imported package 'path' isn't a dependency of the importing package - lib\core\services\storage_service.dart:6:8 - depend_on_referenced_packages
+warning - Unused import: 'package:path/path.dart' - lib\core\services\storage_service.dart:6:8 - unused_import
+   info - Don't invoke 'print' in production code - lib\core\services\storage_service.dart:38:7 - avoid_print
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\core\theme\app_theme.dart:84:9 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\core\theme\app_theme.dart:85:9 - deprecated_member_use
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\core\theme\app_theme.dart:88:9 - deprecated_member_use
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\core\theme\app_theme.dart:213:9 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\core\theme\app_theme.dart:214:9 - deprecated_member_use
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\core\theme\app_theme.dart:217:9 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\theme\app_theme.dart:277:68 - deprecated_member_use
+warning - This default clause is covered by the previous cases - lib\core\theme\theme_provider.dart:58:7 - unreachable_switch_default
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\animated_widgets.dart:11:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\animated_widgets.dart:78:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\animated_widgets.dart:130:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\animated_widgets.dart:163:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\animated_widgets.dart:214:43 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\animated_widgets.dart:235:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\animated_widgets.dart:303:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\app_button.dart:17:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\app_button.dart:77:34 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\app_button.dart:103:39 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\custom_card.dart:15:9 - use_super_parameters
+   info - 'translate' is deprecated and shouldn't be used. Use translateByVector3, translateByVector4, or translateByDouble instead - lib\core\widgets\custom_card.dart:62:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_card.dart:71:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_card.dart:71:80 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_card.dart:77:37 - deprecated_member_use
+warning - Unnecessary cast - lib\core\widgets\custom_card.dart:87:27 - unnecessary_cast
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_card.dart:88:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_card.dart:89:48 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\custom_dialog.dart:15:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_dialog.dart:110:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_dialog.dart:123:36 - deprecated_member_use
+warning - Unused import: 'lib/core/theme/color_palette.dart' - lib\core\widgets\custom_nav_bar.dart:3:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\custom_nav_bar.dart:10:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_nav_bar.dart:25:55 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_nav_bar.dart:29:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_nav_bar.dart:35:40 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_nav_bar.dart:60:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\core\widgets\custom_nav_bar.dart:71:56 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\core\widgets\custom_text_field.dart:17:9 - use_super_parameters
+warning - Unused import: 'package:go_router/go_router.dart' - lib\features\admin\presentation\screens\admin_dashboard_screen.dart:2:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\admin\presentation\screens\admin_dashboard_screen.dart:12:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\screens\admin_dashboard_screen.dart:74:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\screens\admin_dashboard_screen.dart:103:32 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\admin\presentation\screens\admin_settings_screen.dart:7:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\admin\presentation\screens\manage_organizations_screen.dart:8:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\admin\presentation\screens\manage_users_screen.dart:7:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\admin\presentation\screens\manage_users_screen.dart:114:53 - deprecated_member_use
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\admin\presentation\screens\manage_users_screen.dart:138:11 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\admin\presentation\screens\pending_approvals_screen.dart:6:9 - use_super_parameters
+  error - Target of URI doesn't exist: 'lib/core/network/api_client.dart' - lib\features\auth\data\repositories\api_auth_repository.dart:4:8 - uri_does_not_exist
+  error - Target of URI doesn't exist: 'lib/core/storage/secure_storage.dart' - lib\features\auth\data\repositories\api_auth_repository.dart:5:8 - uri_does_not_exist
+  error - Undefined class 'ApiClient' - lib\features\auth\data\repositories\api_auth_repository.dart:9:9 - undefined_class
+  error - Undefined class 'SecureStorage' - lib\features\auth\data\repositories\api_auth_repository.dart:10:9 - undefined_class
+  error - The method 'fromJson' isn't defined for the type 'User' - lib\features\auth\data\repositories\api_auth_repository.dart:33:19 - undefined_method
+  error - The method 'fromJson' isn't defined for the type 'User' - lib\features\auth\data\repositories\api_auth_repository.dart:51:25 - undefined_method
+  error - The method 'fromJson' isn't defined for the type 'User' - lib\features\auth\data\repositories\api_auth_repository.dart:74:19 - undefined_method
+  error - Undefined name 'apiClientProvider' - lib\features\auth\data\repositories\api_auth_repository.dart:88:15 - undefined_identifier
+  error - Undefined name 'secureStorageProvider' - lib\features\auth\data\repositories\api_auth_repository.dart:89:15 - undefined_identifier
+  error - The method 'fromJson' isn't defined for the type 'User' - lib\features\auth\data\repositories\auth_repository_impl.dart:31:17 - undefined_method
+  error - The method 'fromJson' isn't defined for the type 'User' - lib\features\auth\data\repositories\auth_repository_impl.dart:51:23 - undefined_method
+  error - The method 'fromJson' isn't defined for the type 'User' - lib\features\auth\data\repositories\auth_repository_impl.dart:73:17 - undefined_method
+   info - Don't invoke 'print' in production code - lib\features\auth\data\services\firebase_auth_service.dart:59:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\features\auth\data\services\firebase_auth_service.dart:62:7 - avoid_print
+  error - Target of URI doesn't exist: 'lib/features/auth/domain/entities/app_user.dart' - lib\features\auth\domain\repositories\admin_repository.dart:1:8 - uri_does_not_exist
+  error - The name 'AppUser' isn't a type, so it can't be used as a type argument - lib\features\auth\domain\repositories\admin_repository.dart:4:15 - non_type_as_type_argument
+   info - Parameter 'key' could be a super parameter - lib\features\auth\presentation\screens\forgot_password_screen.dart:12:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\forgot_password_screen.dart:91:51 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\auth\presentation\screens\login_screen.dart:13:9 - use_super_parameters
+  error - The named parameter 'email' is required, but there's no corresponding argument - lib\features\auth\presentation\screens\login_screen.dart:36:63 - missing_required_argument
+  error - The named parameter 'password' is required, but there's no corresponding argument - lib\features\auth\presentation\screens\login_screen.dart:36:63 - missing_required_argument
+  error - Too many positional arguments: 0 expected, but 2 found - lib\features\auth\presentation\screens\login_screen.dart:37:11 - extra_positional_arguments_could_be_named
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\login_screen.dart:95:60 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\login_screen.dart:130:62 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\login_screen.dart:172:64 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\auth\presentation\screens\pending_approval_screen.dart:10:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\pending_approval_screen.dart:29:44 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\auth\presentation\screens\register_screen.dart:14:9 - use_super_parameters
+warning - Unnecessary cast - lib\features\auth\presentation\screens\register_screen.dart:76:21 - unnecessary_cast
+   info - Parameter 'key' could be a super parameter - lib\features\auth\presentation\screens\register_screen.dart:278:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\register_screen.dart:300:46 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\auth\presentation\screens\register_screen.dart:311:75 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\directory\presentation\screens\directory_screen.dart:12:9 - use_super_parameters
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\directory\presentation\screens\directory_screen.dart:25:55 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\directory\presentation\screens\directory_screen.dart:25:66 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\directory\presentation\widgets\org_list_tile.dart:11:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\directory\presentation\widgets\org_list_tile.dart:36:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\directory\presentation\widgets\org_list_tile.dart:81:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\directory\presentation\widgets\org_list_tile.dart:133:40 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\directory\presentation\widgets\search_bar_widget.dart:6:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\home\presentation\screens\home_screen.dart:19:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\home\presentation\screens\home_screen.dart:80:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\home\presentation\screens\home_screen.dart:95:9 - use_super_parameters
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\home\presentation\screens\home_screen.dart:110:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\presentation\screens\home_screen.dart:110:55 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\home\presentation\screens\home_screen.dart:130:42 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\home\presentation\screens\home_screen.dart:149:71 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\presentation\screens\home_screen.dart:149:84 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\home\presentation\screens\home_screen.dart:177:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\presentation\screens\home_screen.dart:177:66 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\presentation\screens\home_screen.dart:203:47 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\home\presentation\widgets\live_wall_widget.dart:9:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\presentation\widgets\live_wall_widget.dart:95:62 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\home\presentation\widgets\suggested_orgs_widget.dart:13:9 - use_super_parameters
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\home\presentation\widgets\suggested_orgs_widget.dart:29:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\presentation\widgets\suggested_orgs_widget.dart:29:54 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\home\presentation\widgets\suggested_orgs_widget.dart:81:57 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\features\home\presentation\widgets\suggested_orgs_widget.dart:146:59 - use_build_context_synchronously
+warning - Unused import: 'lib/features/auth/presentation/providers/firebase_auth_notifier.dart' - lib\features\organizations\presentation\screens\edit_org_profile_screen.dart:7:8 - unused_import
+warning - Unused import: 'lib/features/auth/presentation/providers/auth_state.dart' - lib\features\organizations\presentation\screens\edit_org_profile_screen.dart:8:8 - unused_import
+warning - Unused import: 'lib/core/theme/color_palette.dart' - lib\features\organizations\presentation\screens\edit_org_profile_screen.dart:11:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\organizations\presentation\screens\edit_org_profile_screen.dart:20:9 - use_super_parameters
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\organizations\presentation\screens\edit_org_profile_screen.dart:153:46 - deprecated_member_use
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\organizations\presentation\screens\edit_org_profile_screen.dart:192:21 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\organizations\presentation\screens\my_organization_screen.dart:15:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\my_organization_screen.dart:61:95 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\organizations\presentation\screens\my_organization_screen.dart:67:63 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\my_organization_screen.dart:75:60 - deprecated_member_use
+   info - The import of 'dart:ui' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' - lib\features\organizations\presentation\screens\org_profile_screen.dart:2:8 - unnecessary_import
+   info - The import of 'package:flutter/services.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/material.dart' - lib\features\organizations\presentation\screens\org_profile_screen.dart:15:8 - unnecessary_import
+warning - Unused import: 'lib/core/theme/color_palette.dart' - lib\features\organizations\presentation\screens\org_profile_screen.dart:16:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\organizations\presentation\screens\org_profile_screen.dart:23:9 - use_super_parameters
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\features\organizations\presentation\screens\org_profile_screen.dart:63:30 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:113:60 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:120:54 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:160:57 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:196:63 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:300:68 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:304:57 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:304:92 - deprecated_member_use
+   info - 'Share' is deprecated and shouldn't be used. Use SharePlus instead - lib\features\organizations\presentation\screens\org_profile_screen.dart:367:37 - deprecated_member_use
+   info - 'share' is deprecated and shouldn't be used. Use SharePlus.instance.share() instead - lib\features\organizations\presentation\screens\org_profile_screen.dart:367:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:375:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:391:77 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:393:77 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:395:77 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:427:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:429:60 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\organizations\presentation\screens\org_profile_screen.dart:444:75 - deprecated_member_use
+   info - The member 'addFavoriteOrg' overrides an inherited member but isn't annotated with '@override' - lib\features\profile\data\datasources\profile_remote_data_source.dart:28:16 - annotate_overrides
+   info - The member 'removeFavoriteOrg' overrides an inherited member but isn't annotated with '@override' - lib\features\profile\data\datasources\profile_remote_data_source.dart:34:16 - annotate_overrides
+warning - Unused import: 'package:go_router/go_router.dart' - lib\features\profile\presentation\screens\edit_profile_screen.dart:5:8 - unused_import
+warning - Unused import: 'lib/core/theme/theme_provider.dart' - lib\features\profile\presentation\screens\edit_profile_screen.dart:12:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\profile\presentation\screens\edit_profile_screen.dart:20:9 - use_super_parameters
+   info - Don't invoke 'print' in production code - lib\features\profile\presentation\screens\edit_profile_screen.dart:88:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\features\profile\presentation\screens\edit_profile_screen.dart:97:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\features\profile\presentation\screens\edit_profile_screen.dart:101:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\features\profile\presentation\screens\edit_profile_screen.dart:115:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\features\profile\presentation\screens\edit_profile_screen.dart:127:7 - avoid_print
+warning - The declaration '_ThemeOption' isn't referenced - lib\features\profile\presentation\screens\edit_profile_screen.dart:246:7 - unused_element
+   info - Parameter 'key' could be a super parameter - lib\features\profile\presentation\screens\edit_profile_screen.dart:252:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\presentation\screens\edit_profile_screen.dart:263:88 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\presentation\screens\edit_profile_screen.dart:271:57 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\profile\presentation\screens\favorite_orgs_screen.dart:11:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\profile\presentation\screens\favorite_orgs_screen.dart:53:9 - use_super_parameters
+warning - Unused import: 'edit_profile_screen.dart' - lib\features\profile\presentation\screens\profile_screen.dart:4:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\profile\presentation\screens\profile_screen.dart:14:9 - use_super_parameters
+warning - Unused import: 'package:go_router/go_router.dart' - lib\features\profile\presentation\screens\settings_screen.dart:4:8 - unused_import
+warning - Unused import: 'lib/core/theme/color_palette.dart' - lib\features\profile\presentation\screens\settings_screen.dart:6:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\profile\presentation\screens\settings_screen.dart:11:9 - use_super_parameters
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\features\profile\presentation\screens\settings_screen.dart:38:19 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\presentation\screens\settings_screen.dart:45:53 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\presentation\screens\settings_screen.dart:45:86 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\presentation\screens\settings_screen.dart:76:74 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\profile\presentation\screens\settings_screen.dart:101:75 - deprecated_member_use
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\profile\presentation\screens\settings_screen.dart:143:36 - deprecated_member_use
+warning - Unnecessary cast - lib\features\social\data\repositories\social_repository_impl.dart:62:16 - unnecessary_cast
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\activity_screen.dart:12:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\screens\activity_screen.dart:29:86 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\screens\activity_screen.dart:31:93 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\activity_screen.dart:58:9 - use_super_parameters
+warning - Unused import: 'lib/features/social/domain/entities/relationship.dart' - lib\features\social\presentation\screens\connections_screen.dart:7:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\connections_screen.dart:10:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\connections_screen.dart:56:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\connections_screen.dart:117:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\create_post_screen.dart:11:9 - use_super_parameters
+warning - Unused import: 'lib/core/theme/color_palette.dart' - lib\features\social\presentation\screens\edit_profile_screen.dart:8:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\edit_profile_screen.dart:14:9 - use_super_parameters
+warning - The value of the field '_newCoverName' isn't used - lib\features\social\presentation\screens\edit_profile_screen.dart:27:11 - unused_field
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\social\presentation\screens\edit_profile_screen.dart:117:47 - deprecated_member_use
+warning - Unused import: 'lib/core/theme/color_palette.dart' - lib\features\social\presentation\screens\social_feed_screen.dart:13:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\social_feed_screen.dart:17:9 - use_super_parameters
+   info - 'background' is deprecated and shouldn't be used. Use surface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\social\presentation\screens\social_feed_screen.dart:30:55 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\screens\social_feed_screen.dart:30:66 - deprecated_member_use
+   info - 'onBackground' is deprecated and shouldn't be used. Use onSurface instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\social\presentation\screens\social_feed_screen.dart:45:75 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\screens\social_feed_screen.dart:45:88 - deprecated_member_use
+warning - Unused import: 'lib/features/social/domain/entities/post.dart' - lib\features\social\presentation\screens\user_profile_screen.dart:5:8 - unused_import
+warning - Unused import: 'lib/features/auth/domain/entities/user.dart' - lib\features\social\presentation\screens\user_profile_screen.dart:7:8 - unused_import
+warning - Unused import: 'lib/features/social/domain/usecases/toggle_like_post.dart' - lib\features\social\presentation\screens\user_profile_screen.dart:9:8 - unused_import
+warning - Unused import: 'lib/core/theme/color_palette.dart' - lib\features\social\presentation\screens\user_profile_screen.dart:17:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\screens\user_profile_screen.dart:22:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\screens\user_profile_screen.dart:58:64 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\screens\user_profile_screen.dart:125:109 - deprecated_member_use
+   info - Unnecessary use of multiple underscores - lib\features\social\presentation\screens\user_profile_screen.dart:273:17 - unnecessary_underscores
+warning - Unused import: 'package:livora/features/social/domain/repositories/social_repository.dart' - lib\features\social\presentation\widgets\comments_sheet.dart:8:8 - unused_import
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\widgets\comments_sheet.dart:14:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\widgets\comments_sheet.dart:108:60 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\widgets\post_card.dart:19:9 - use_super_parameters
+warning - The value of the local variable 'primaryColor' isn't used - lib\features\social\presentation\widgets\post_card.dart:46:11 - unused_local_variable
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\widgets\post_card.dart:82:68 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\widgets\post_card.dart:89:86 - deprecated_member_use
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\social\presentation\widgets\post_card.dart:119:44 - deprecated_member_use
+   info - 'surfaceVariant' is deprecated and shouldn't be used. Use surfaceContainerHighest instead. This feature was deprecated after v3.18.0-0.1.pre - lib\features\social\presentation\widgets\post_card.dart:124:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\widgets\post_card.dart:141:78 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\widgets\post_card.dart:149:49 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\widgets\post_card.dart:153:91 - deprecated_member_use
+   info - 'Share' is deprecated and shouldn't be used. Use SharePlus instead - lib\features\social\presentation\widgets\post_card.dart:155:21 - deprecated_member_use
+   info - 'share' is deprecated and shouldn't be used. Use SharePlus.instance.share() instead - lib\features\social\presentation\widgets\post_card.dart:155:27 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\widgets\profile_header.dart:15:9 - use_super_parameters
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\features\social\presentation\widgets\profile_header.dart:51:86 - deprecated_member_use
+   info - Parameter 'key' could be a super parameter - lib\features\social\presentation\widgets\user_avatar.dart:13:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\main.dart:37:9 - use_super_parameters
+   info - Parameter 'key' could be a super parameter - lib\main.dart:89:9 - use_super_parameters
+

@@ -2,8 +2,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../storage/secure_storage.dart';
-import '../../features/auth/domain/entities/user.dart';
+import 'package:Livora/core/storage/secure_storage.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart';
 
 // Background handler must be top-level
 @pragma('vm:entry-point')

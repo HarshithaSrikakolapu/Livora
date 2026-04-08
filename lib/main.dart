@@ -13,7 +13,8 @@ import 'features/home/presentation/screens/home_screen.dart';
 import 'core/services/notification_providers.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/theme_provider.dart';
-
+import 'core/widgets/cursor_bubble_wrapper.dart';
+import 'core/widgets/background_paths.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,14 +35,11 @@ void main() async {
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Initialize notifications when auth state changes
     ref.watch(notificationInitializerProvider);
-
-    // Watch theme mode
     final themeMode = ref.watch(themeModeProvider);
 
     final router = GoRouter(
@@ -71,6 +69,10 @@ class MyApp extends ConsumerWidget {
           path: '/home',
           builder: (context, state) => const HomeScreen(),
         ),
+        GoRoute(
+          path: '/demo-background',
+          builder: (context, state) => const BackgroundPaths(),
+        ),
       ],
     );
 
@@ -78,15 +80,22 @@ class MyApp extends ConsumerWidget {
       title: 'Livora',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme, // Premium Dark Theme
-      themeMode: themeMode, // Controlled by provider
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeMode,
       routerConfig: router,
+      builder: (context, child) {
+        if (child == null) return const SizedBox.shrink();
+        return ColoredBox(
+          color: Colors.black,
+          child: CursorBubbleWrapper(child: child),
+        );
+      },
     );
   }
 }
 
 class AuthChecker extends ConsumerWidget {
-  const AuthChecker({Key? key}) : super(key: key);
+  const AuthChecker({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -105,6 +114,7 @@ class AuthChecker extends ConsumerWidget {
     });
 
     return const Scaffold(
+      backgroundColor: Colors.transparent,
       body: Center(child: CircularProgressIndicator()),
     );
   }

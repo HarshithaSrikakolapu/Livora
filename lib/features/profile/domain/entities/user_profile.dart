@@ -5,6 +5,7 @@ class UserProfile {
   final String role; // 'user' | 'org' | 'admin'
   final String? profilePhoto;
   final String? bio;
+  final String? phone;
   final List<String> followers;
   final List<String> favoriteOrgs; // IDs of favorite organizations
 
@@ -15,6 +16,7 @@ class UserProfile {
     required this.role,
     this.profilePhoto,
     this.bio,
+    this.phone,
     this.followers = const [],
     this.favoriteOrgs = const [],
   });

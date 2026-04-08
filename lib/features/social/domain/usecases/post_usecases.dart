@@ -1,8 +1,6 @@
-
-import 'dart:io';
-
-import '../entities/post.dart';
-import '../repositories/social_repository.dart';
+import 'dart:typed_data';
+import 'package:Livora/features/social/domain/entities/post.dart';
+import 'package:Livora/features/social/domain/repositories/social_repository.dart';
 
 class CreatePost {
   final SocialRepository repository;
@@ -39,7 +37,8 @@ class UploadPostImage {
 
   UploadPostImage(this.repository);
 
-  Future<String> call(File file, String path) {
-    return repository.uploadPostImage(file, path);
+  Future<String> call(Uint8List data, String fileName) {
+    return repository.uploadPostImage(data, fileName);
   }
 }
+

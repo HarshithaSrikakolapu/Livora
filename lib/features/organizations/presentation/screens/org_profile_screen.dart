@@ -1,22 +1,27 @@
+
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../providers/organization_providers.dart';
-import '../../domain/entities/organization.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../../auth/presentation/providers/auth_state.dart';
+import 'package:Livora/features/organizations/presentation/providers/organization_providers.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
 import 'edit_org_profile_screen.dart';
-import '../../../profile/presentation/providers/profile_providers.dart';
-import '../../../../core/widgets/animated_widgets.dart';
+import 'package:Livora/features/profile/presentation/providers/profile_providers.dart';
+import 'package:Livora/core/widgets/animated_widgets.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter/foundation.dart'; // for kIsWeb
 import 'package:flutter/services.dart'; // for Clipboard
-import '../../../../core/theme/color_palette.dart';
+import 'package:Livora/core/theme/color_palette.dart';
+import 'package:Livora/core/widgets/app_button.dart';
+import 'package:Livora/core/widgets/custom_card.dart';
+import 'package:Livora/features/live/presentation/screens/organization_live_management_screen.dart';
 
 class OrgProfileScreen extends ConsumerStatefulWidget {
   final Organization organization;
 
-  const OrgProfileScreen({Key? key, required this.organization}) : super(key: key);
+  const OrgProfileScreen({super.key, required this.organization});
 
   @override
   ConsumerState<OrgProfileScreen> createState() => _OrgProfileScreenState();
@@ -66,9 +71,6 @@ class _OrgProfileScreenState extends ConsumerState<OrgProfileScreen> {
   // Refetches data to ensure UI is consistent
   Future<void> _refreshOrganization() async {
     try {
-      // Invalidate to force fresh fetch if using any caching provider (future proofing)
-      // ref.invalidate(organizationProvider(_organization.id)); 
-      
       final freshOrg = await ref.read(organizationRepositoryProvider).getOrganizationById(_organization.id);
       
       if (freshOrg != null && mounted) {
@@ -76,12 +78,9 @@ class _OrgProfileScreenState extends ConsumerState<OrgProfileScreen> {
           _organization = freshOrg;
         });
         
-        // Also invalidate the global provider to keep other screens in sync
-        // (Like MyOrganizationScreen or Lists)
         final auth = ref.read(firebaseAuthNotifierProvider);
         if (auth is Authenticated && auth.user.id == _organization.id) {
            ref.invalidate(currentOrganizationProvider); 
-           // Also invalidate the live list so Home Screen updates
            ref.invalidate(liveOrganizationsProvider);
         }
       }
@@ -92,331 +91,353 @@ class _OrgProfileScreenState extends ConsumerState<OrgProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final authState = ref.watch(firebaseAuthNotifierProvider);
     bool canEdit = false;
 
     if (authState is Authenticated) {
-      if (authState.user.id == _organization.id || authState.user.role == 'admin') {
-        canEdit = true;
-      }
+      final isOwner = authState.user.id == _organization.id;
+      final isAdmin = authState.user.role == 'superAdmin';
+      canEdit = isOwner || isAdmin;
     }
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
+          // Glass App Bar with Cover
           SliverAppBar(
-            expandedHeight: 200.0,
+            expandedHeight: 220.0,
             floating: false,
             pinned: true,
+            backgroundColor: theme.scaffoldBackgroundColor.withOpacity(0.9),
+            iconTheme: IconThemeData(color: theme.iconTheme.color),
             actions: [
               if (canEdit)
-                IconButton(
-                  icon: const Icon(Icons.edit),
-                  onPressed: () async {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => EditOrgProfileScreen(organization: _organization),
-                      ),
-                    );
-                    // Refresh local data immediately
-                    await _refreshOrganization();
-                  },
+                Container(
+                  margin: const EdgeInsets.only(right: 16),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface.withOpacity(0.6),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    icon: const Icon(Icons.edit_rounded, size: 20),
+                    onPressed: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => EditOrgProfileScreen(organization: _organization),
+                        ),
+                      );
+                      await _refreshOrganization();
+                    },
+                  ),
                 ),
             ],
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                _organization.name,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  shadows: [Shadow(color: Colors.black45, blurRadius: 4)],
-                ),
-              ),
-              background: Container(
-                color: Colors.blue[800],
-                child: const Center(
-                  child: Icon(Icons.business, size: 80, color: Colors.white30),
-                ),
+              titlePadding: EdgeInsets.zero,
+              centerTitle: true,
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF000000), Color(0xFF0a0a0a)], 
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                    ),
+                    child: const Center(
+                      child: Icon(Icons.business_rounded, size: 80, color: Colors.white12),
+                    ),
+                  ),
+                  // Gradient Overlay
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.transparent,
+                          theme.scaffoldBackgroundColor.withOpacity(0.5),
+                          theme.scaffoldBackgroundColor,
+                        ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: const [0.4, 0.8, 1.0],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Header Info
-                    FadeInUp(
-                      delay: const Duration(milliseconds: 100),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Logo & Name Row (Negative margin to overlap cover if desired, but here simpler)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: FadeInUp(
                       child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                            child: Text(
-                              _organization.name.substring(0, 1).toUpperCase(),
-                              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer),
+                          // Logo
+                          Hero(
+                            tag: 'org_logo_${_organization.id}',
+                            child: Container(
+                              width: 90,
+                              height: 90,
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.surface,
+                                shape: BoxShape.circle,
+                                border: Border.all(color: theme.scaffoldBackgroundColor, width: 4),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2), 
+                                    blurRadius: 15, 
+                                    offset: const Offset(0, 8)
+                                  ),
+                                ],
+                                image: _organization.logoUrl != null
+                                    ? DecorationImage(
+                                        image: NetworkImage(_organization.logoUrl!),
+                                        fit: BoxFit.cover,
+                                      )
+                                    : null,
+                              ),
+                              child: _organization.logoUrl == null
+                                  ? Center(
+                                      child: Text(
+                                        _organization.name.substring(0, 1).toUpperCase(), 
+                                        style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold)
+                                      )
+                                    )
+                                  : null,
                             ),
                           ),
                           const SizedBox(width: 16),
+                          // Name & Followers
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   _organization.name,
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  style: theme.textTheme.displaySmall?.copyWith(
+                                    fontWeight: FontWeight.w900,
+                                    color: ColorPalette.pureWhite,
+                                    height: 1.1,
+                                    letterSpacing: -1.0,
+                                  ),
+                                  softWrap: true,
                                 ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  '${_organization.subscribers.length} followers',
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey),
+                                const SizedBox(height: 6),
+                                Row(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: ColorPalette.livoraRed.withOpacity(0.15),
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(color: ColorPalette.livoraRed.withOpacity(0.3), width: 1),
+                                      ),
+                                      child: Text(
+                                        _organization.category,
+                                        style: theme.textTheme.bodySmall?.copyWith(
+                                          color: ColorPalette.livoraRed,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 0.2,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                      decoration: BoxDecoration(
+                                        color: ColorPalette.darkSurfaceVariant,
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(color: ColorPalette.borderSubtle, width: 1),
+                                      ),
+                                      child: Text(
+                                        '${_organization.subscribers.length} followers',
+                                        style: theme.textTheme.bodySmall?.copyWith(
+                                          color: ColorPalette.softGrey,
+                                          fontWeight: FontWeight.w600,
+                                          letterSpacing: 0.2,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
                           ),
-                          Consumer(
-                            builder: (context, ref, child) {
-                              final authState = ref.watch(firebaseAuthNotifierProvider);
-                              if (authState is! Authenticated) return const SizedBox.shrink();
-                              
-                              final isFollowing = _organization.subscribers.contains(authState.user.id);
-                              
-                              return AnimatedScaleButton(
-                                onTap: () async {
-                                  final repo = ref.read(profileRepositoryProvider);
-                                  final userId = authState.user.id;
-                                  final orgId = _organization.id;
-                                  
-                                  try {
-                                    if (isFollowing) {
-                                      await repo.removeFavoriteOrganization(userId, orgId);
-                                    } else {
-                                      if (authState.user.favoriteOrgs.length >= 10) {
-                                        if (context.mounted) {
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            const SnackBar(
-                                              content: Text('You can only follow up to 10 organizations.'),
-                                              backgroundColor: Colors.red,
-                                            ),
-                                          );
-                                        }
-                                        return;
-                                      }
-                                      await repo.addFavoriteOrganization(userId, orgId);
-                                    }
-                                    await _refreshOrganization();
-                                    
-                                    await ref.read(firebaseAuthNotifierProvider.notifier).refreshUser();
-                                  } catch (e) {
-                                    if (context.mounted) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text('Error: $e')),
-                                      );
-                                    }
-                                  }
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                                  decoration: BoxDecoration(
-                                    color: isFollowing ? Theme.of(context).disabledColor : Theme.of(context).colorScheme.primary,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Text(
-                                    isFollowing ? 'Following' : 'Follow',
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
                         ],
                       ),
                     ),
-                    
-                    const SizedBox(height: 24),
-                    
-                    if (_organization.isLive) ...[
-                      FadeInUp(
-                        delay: const Duration(milliseconds: 200),
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [ColorPalette.primary, ColorPalette.secondary],
-                            ),
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                                BoxShadow(color: ColorPalette.primary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4)),
-                            ],
+                  ),
+
+                  // Follow Button (Full width or prominent)
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 100),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final authState = ref.watch(firebaseAuthNotifierProvider);
+                          if (authState is! Authenticated) return const SizedBox.shrink();
+                          
+                          final isFollowing = _organization.subscribers.contains(authState.user.id);
+                          
+                          return AppButton(
+                            text: isFollowing ? 'Following' : 'Follow',
+                            type: isFollowing ? AppButtonType.secondary : AppButtonType.primary,
+                            icon: isFollowing ? Icons.check : Icons.add,
+                            fullWidth: true,
+                            onPressed: () async {
+                              final repo = ref.read(profileRepositoryProvider);
+                              final userId = authState.user.id;
+                              final orgId = _organization.id;
+                              
+                              try {
+                                if (isFollowing) {
+                                  await repo.removeFavoriteOrganization(userId, orgId);
+                                } else {
+                                  if (authState.user.favoriteOrgs.length >= 10) {
+                                    if (context.mounted) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text('You can only follow up to 10 organizations.'), backgroundColor: Colors.red),
+                                      );
+                                    }
+                                    return;
+                                  }
+                                  await repo.addFavoriteOrganization(userId, orgId);
+                                }
+                                await _refreshOrganization();
+                                await ref.read(firebaseAuthNotifierProvider.notifier).refreshUser();
+                              } catch (e) {
+                                if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error: $e')));
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  
+                  // Live Management Button for Owners
+                  if (canEdit)
+                    FadeInUp(
+                      delay: const Duration(milliseconds: 150),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: AppButton(
+                          text: 'Manage Live Streams',
+                          type: AppButtonType.secondary,
+                          icon: Icons.settings_remote_rounded,
+                          fullWidth: true,
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => OrganizationLiveManagementScreen(organizationId: _organization.id),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  const SizedBox(height: 24),
+
+                  // Actions Grid
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 300),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _buildActionCircle(context, Icons.call_rounded, 'Call', () => _launchURL(context, 'tel:${_organization.phone}')),
+                        _buildActionCircle(context, Icons.email_rounded, 'Email', () => _launchURL(context, 'mailto:${_organization.email}')),
+                        _buildActionCircle(context, Icons.share_rounded, 'Share', () async {
+                              final shareText = 'Check out ${_organization.name} on Livora! https://livora.app/organizations/${_organization.id}';
+                              await Share.share(shareText);
+                        }),
+                        _buildActionCircle(context, Icons.map_rounded, 'Map', () {}), // Placeholder
+                      ],
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 24),
+                  Divider(color: theme.dividerColor.withOpacity(0.5)),
+                  const SizedBox(height: 16),
+                  
+                  // About Section
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 400),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('About', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 12),
+                        if (_organization.description != null && _organization.description!.isNotEmpty) ...[
+                          Text(
+                            _organization.description!,
+                            style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
                           ),
+                          const SizedBox(height: 16),
+                        ],
+                        CustomCard(
+                          padding: const EdgeInsets.all(16),
                           child: Column(
                             children: [
-                               const Row(
-                                 mainAxisAlignment: MainAxisAlignment.center,
-                                 children: [
-                                   PulsingDot(color: Colors.white, size: 12),
-                                   SizedBox(width: 8),
-                                   Text(
-                                     'LIVE NOW',
-                                     style: TextStyle(
-                                       color: Colors.white, 
-                                       fontWeight: FontWeight.bold,
-                                       fontSize: 18,
-                                     ),
-                                   ),
-                                 ],
-                               ),
-                              const SizedBox(height: 16),
-                              if (_organization.youtubeLiveUrl != null && _organization.youtubeLiveUrl!.isNotEmpty)
-                                AnimatedScaleButton(
-                                  onTap: () => _launchURL(context, _organization.youtubeLiveUrl!),
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(vertical: 12),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(Icons.play_arrow, color: Colors.red),
-                                        const SizedBox(width: 8),
-                                        Text('Watch on YouTube', style: TextStyle(color: Colors.red[700], fontWeight: FontWeight.bold)),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              if (_organization.facebookLiveUrl != null && _organization.facebookLiveUrl!.isNotEmpty) ...[
-                                 const SizedBox(height: 8),
-                                 AnimatedScaleButton(
-                                   onTap: () => _launchURL(context, _organization.facebookLiveUrl!),
-                                   child: Container(
-                                     width: double.infinity,
-                                     padding: const EdgeInsets.symmetric(vertical: 12),
-                                     decoration: BoxDecoration(
-                                       color: Colors.white,
-                                       borderRadius: BorderRadius.circular(8),
-                                     ),
-                                     child: Row(
-                                       mainAxisAlignment: MainAxisAlignment.center,
-                                       children: [
-                                         const Icon(Icons.facebook, color: Color(0xFF1877F2)), // FB Blue
-                                         const SizedBox(width: 8),
-                                         const Text('Watch on Facebook', style: TextStyle(color: Color(0xFF1877F2), fontWeight: FontWeight.bold)),
-                                       ],
-                                     ),
-                                   ),
-                                 ),
-                              ]
+                              _buildInfoRow(context, Icons.location_on_outlined, _organization.address),
+                              Divider(height: 24, color: theme.dividerColor.withOpacity(0.5)),
+                              _buildInfoRow(context, Icons.person_outline_rounded, 'Contact: ${_organization.contactPerson}'),
+                              Divider(height: 24, color: theme.dividerColor.withOpacity(0.5)),
+                              _buildInfoRow(context, Icons.phone_outlined, _organization.phone),
+                              Divider(height: 24, color: theme.dividerColor.withOpacity(0.5)),
+                              _buildInfoRow(context, Icons.email_outlined, _organization.email),
                             ],
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 24),
-                    ],
-
-                    // Actions
-                    FadeInUp(
-                      delay: const Duration(milliseconds: 300),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _buildActionButton(
-                            context, 
-                            Icons.call, 
-                            'Call',
-                            () => _launchURL(context, 'tel:${_organization.phone}'),
-                          ),
-                          _buildActionButton(
-                            context, 
-                            Icons.email, 
-                            'Email',
-                            () => _launchURL(context, 'mailto:${_organization.email}'),
-                          ),
-                          _buildActionButton(
-                            context, 
-                            Icons.share, 
-                            'Share',
-                            () async {
-                              final shareText = 'Check out ${_organization.name} on Livora! https://livora.app/organizations/${_organization.id}';
-                              try {
-                                // Using share_plus
-                                await Share.share(shareText);
-                              } catch (e) {
-                                // Fallback for unsupported platforms (like some desktops/browsers)
-                                await Clipboard.setData(ClipboardData(text: shareText));
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text('Link copied to clipboard!')),
-                                  );
-                                }
-                              }
-                            },
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
-                    
-                    const SizedBox(height: 24),
-                    const Divider(),
-                    const SizedBox(height: 16),
-                    
-                    // About
-                    FadeInUp(
-                      delay: const Duration(milliseconds: 400),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'About',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          const SizedBox(height: 8),
-                          _buildInfoRow(context, Icons.location_on, _organization.address),
-                          const SizedBox(height: 8),
-                          _buildInfoRow(context, Icons.person, 'Contact: ${_organization.contactPerson}'),
-                          const SizedBox(height: 8),
-                          _buildInfoRow(context, Icons.phone, _organization.phone),
-                          const SizedBox(height: 8),
-                          _buildInfoRow(context, Icons.email, _organization.email),
-                        ],
-                      ),
-                    ),
-                    
-                    const SizedBox(height: 40),
-                  ],
-                ),
+                  ),
+                  
+                  const SizedBox(height: 40),
+                ],
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
   }
 
-  Widget _buildActionButton(BuildContext context, IconData icon, String label, VoidCallback onTap) {
+  Widget _buildActionCircle(BuildContext context, IconData icon, String label, VoidCallback onTap) {
+    final theme = Theme.of(context);
     return AnimatedScaleButton(
       onTap: onTap,
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            width: 50,
+            height: 50,
             decoration: BoxDecoration(
+              color: theme.colorScheme.surface,
               shape: BoxShape.circle,
-              color: Theme.of(context).colorScheme.surfaceVariant,
+              boxShadow: [
+                BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8, offset: const Offset(0, 2)),
+              ],
+              border: Border.all(color: theme.dividerColor.withOpacity(0.5)),
             ),
-            child: Icon(icon, color: Theme.of(context).colorScheme.primary),
+            child: Icon(icon, color: theme.primaryColor, size: 22),
           ),
-          const SizedBox(height: 4),
-          Text(label, style: const TextStyle(fontSize: 12)),
+          const SizedBox(height: 8),
+          Text(label, style: theme.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)),
         ],
       ),
     );
@@ -426,10 +447,10 @@ class _OrgProfileScreenState extends ConsumerState<OrgProfileScreen> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 18, color: Theme.of(context).colorScheme.secondary),
+        Icon(icon, size: 20, color: Theme.of(context).colorScheme.primary.withOpacity(0.7)),
         const SizedBox(width: 12),
         Expanded(child: Text(text, style: Theme.of(context).textTheme.bodyMedium)),
       ],
     );
   }
-}    
+}

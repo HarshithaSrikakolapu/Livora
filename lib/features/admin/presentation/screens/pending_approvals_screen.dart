@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/admin_providers.dart';
+import 'package:Livora/features/admin/presentation/providers/admin_providers.dart';
 
 class PendingApprovalsScreen extends ConsumerWidget {
-  const PendingApprovalsScreen({Key? key}) : super(key: key);
+  const PendingApprovalsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pendingUsersAsync = ref.watch(pendingUsersProvider);
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Pending Approvals'),
       ),

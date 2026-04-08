@@ -1,4 +1,4 @@
-import '../entities/organization.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
 
 abstract class OrganizationRepository {
   Future<List<Organization>> getOrganizations();

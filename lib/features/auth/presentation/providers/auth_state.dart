@@ -1,4 +1,4 @@
-import '../../domain/entities/user.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart';
 
 abstract class AuthState {
   const AuthState();

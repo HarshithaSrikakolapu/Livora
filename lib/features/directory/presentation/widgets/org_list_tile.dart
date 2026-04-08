@@ -1,85 +1,144 @@
+
 import 'package:flutter/material.dart';
-import '../../../../features/organizations/domain/entities/organization.dart';
-import '../../../../core/widgets/animated_widgets.dart';
-import '../../../../core/theme/color_palette.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
+import 'package:Livora/core/widgets/animated_widgets.dart';
+import 'package:Livora/core/widgets/custom_card.dart';
+import 'package:Livora/core/theme/color_palette.dart';
 
 class OrgListTile extends StatelessWidget {
   final Organization organization;
   final VoidCallback? onTap;
 
   const OrgListTile({
-    Key? key,
+    super.key,
     required this.organization,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedScaleButton(
-      onTap: onTap ?? () {},
-      child: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        elevation: 1, // Theme handles shadow, keeping minimal elevation here
-        child: ListTile(
-          contentPadding: const EdgeInsets.all(12),
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.blue[100],
-            backgroundImage: organization.logoUrl != null ? NetworkImage(organization.logoUrl!) : null,
-            child: organization.logoUrl == null
-                ? Text(
-                    organization.name.substring(0, 1).toUpperCase(),
-                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
-                  )
-                : null,
-          ),
-          title: Text(
-            organization.name,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          subtitle: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                organization.category,
-                style: TextStyle(color: Colors.grey[800], fontSize: 13, fontWeight: FontWeight.w500),
+    final theme = Theme.of(context);
+    
+    return CustomCard(
+      onTap: onTap,
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Logo
+          Hero(
+            tag: 'org_logo_${organization.id}',
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: theme.primaryColor.withOpacity(0.1),
+                image: organization.logoUrl != null
+                    ? DecorationImage(
+                        image: NetworkImage(organization.logoUrl!),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
               ),
-              const SizedBox(height: 4),
-              Row(
-                children: [
-                  const Icon(Icons.location_on, size: 14, color: Colors.grey),
-                  const SizedBox(width: 4),
-                  Expanded(
-                    child: Text(
-                      organization.address,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                    ),
-                  ),
-                ],
-              ),
-              if (organization.isLive)
-                Padding(
-                  padding: const EdgeInsets.only(top: 6.0),
-                  child: PulsingBadge(
-                    glowColor: ColorPalette.deepRed,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).brightness == Brightness.light ? ColorPalette.primary : ColorPalette.deepRed,
-                        borderRadius: BorderRadius.circular(4),
+              child: organization.logoUrl == null
+                  ? Center(
+                      child: Text(
+                        organization.name.substring(0, 1).toUpperCase(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20, 
+                          color: theme.primaryColor
+                        ),
                       ),
-                      child: const Text(
-                        'LIVE NOW',
-                        style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                    )
+                  : null,
+            ),
+          ),
+          const SizedBox(width: 16),
+          
+          // Details
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        organization.name,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                    if (organization.isLive) ...[
+                      const SizedBox(width: 8),
+                      PulsingBadge(
+                        glowColor: Colors.white.withOpacity(0.3),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(color: ColorPalette.livoraRed, width: 1),
+                            boxShadow: [
+                              BoxShadow(color: ColorPalette.livoraRed.withOpacity(0.3), blurRadius: 4),
+                            ],
+                          ),
+                          child: const Text(
+                            'LIVE',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 9,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  organization.category,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.primaryColor,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-            ],
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Icon(Icons.location_on_rounded, size: 14, color: theme.disabledColor),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(
+                        organization.address,
+                        style: theme.textTheme.bodySmall?.copyWith(
+                          color: theme.disabledColor,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
-        ),
+          
+          // Optional trailing icon
+          Icon(
+            Icons.chevron_right_rounded,
+            color: theme.disabledColor.withOpacity(0.5),
+          ),
+        ],
       ),
     );
   }

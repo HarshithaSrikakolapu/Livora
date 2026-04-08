@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../features/auth/domain/entities/user.dart';
-import '../providers/admin_providers.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart';
+import 'package:Livora/features/admin/presentation/providers/admin_providers.dart';
 
 class ManageUsersScreen extends ConsumerStatefulWidget {
-  const ManageUsersScreen({Key? key}) : super(key: key);
+  const ManageUsersScreen({super.key});
 
   @override
   ConsumerState<ManageUsersScreen> createState() => _ManageUsersScreenState();
@@ -25,6 +25,7 @@ class _ManageUsersScreenState extends ConsumerState<ManageUsersScreen> {
     final usersAsync = ref.watch(allUsersProvider(_searchQuery));
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Manage Users'),
       ),
@@ -135,7 +136,7 @@ class _ManageUsersScreenState extends ConsumerState<ManageUsersScreen> {
         ),
         trailing: Switch(
           value: isActive,
-          activeColor: Colors.green,
+          activeThumbColor: Colors.green,
           onChanged: (val) async {
             // Confirm toggling
             final confirm = await showDialog<bool>(

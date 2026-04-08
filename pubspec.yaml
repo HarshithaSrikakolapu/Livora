@@ -1,4 +1,4 @@
-name: edirectory_app
+name: Livora
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -61,13 +61,23 @@ dependencies:
   image_picker: ^1.0.7
   
   # Utilities
-  intl: ^0.19.0
+  intl: ^0.20.2
   url_launcher: ^6.3.2
   flutter_local_notifications: ^19.5.0
   shared_preferences: ^2.5.4
   share_plus: ^12.0.1
   intl_phone_field: ^3.2.0
+  flutter_launcher_icons: ^0.14.4
+
+  # Video Players
+  video_player: ^2.8.1
+  youtube_player_flutter: ^9.0.1
+  chewie: ^1.7.0
+  better_player_plus: any
+  flutter_inappwebview: ^6.0.0
+
   
+  livora: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -81,6 +91,8 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
+  path: any
+  livora: any
 flutter:
 
   # The following line ensures that the Material Icons font is
@@ -91,7 +103,11 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-
+    - assets/icon/
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 
@@ -117,3 +133,4 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+  

@@ -1,6 +1,6 @@
 
-import '../entities/relationship.dart';
-import '../repositories/social_repository.dart';
+import 'package:Livora/features/social/domain/entities/relationship.dart';
+import 'package:Livora/features/social/domain/repositories/social_repository.dart';
 
 class SendConnectionRequest {
   final SocialRepository repository;

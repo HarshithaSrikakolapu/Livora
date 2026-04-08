@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
   final String label;
-  final String? hint;
+  final String? hintText;
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final bool obscureText;
@@ -12,11 +12,12 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final bool readOnly;
   final VoidCallback? onTap;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.label,
-    this.hint,
+    this.hintText,
     this.controller,
     this.validator,
     this.obscureText = false,
@@ -26,7 +27,8 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.readOnly = false,
     this.onTap,
-  }) : super(key: key);
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +37,15 @@ class CustomTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: theme.textTheme.labelLarge?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 8),
+          child: Text(
+            label,
+            style: theme.textTheme.labelMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
-        const SizedBox(height: 8),
         TextFormField(
           controller: controller,
           validator: validator,
@@ -51,39 +54,15 @@ class CustomTextField extends StatelessWidget {
           maxLines: maxLines,
           readOnly: readOnly,
           onTap: onTap,
+          onChanged: onChanged,
           style: theme.textTheme.bodyLarge,
           decoration: InputDecoration(
-            hintText: hint,
+            hintText: hintText,
             prefixIcon: prefixIcon != null 
-                ? Icon(prefixIcon, color: theme.colorScheme.primary.withOpacity(0.7)) 
+                ? Icon(prefixIcon, size: 22) 
                 : null,
             suffixIcon: suffixIcon,
-            filled: true,
-            fillColor: theme.colorScheme.surface,
-            contentPadding: const EdgeInsets.all(16),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(
-                color: theme.colorScheme.onSurface.withOpacity(0.05),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(
-                color: theme.colorScheme.primary,
-                width: 2,
-              ),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: BorderSide(
-                color: theme.colorScheme.error,
-              ),
-            ),
+            // Theme handles borders, colors, and content padding
           ),
         ),
       ],

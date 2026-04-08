@@ -2,36 +2,43 @@
 import 'package:flutter/material.dart';
 
 class ColorPalette {
-  // Livora Brand Colors
-  static const Color livoraRed = Color(0xFFE50914); // Primary Accent
-  static const Color deepRed = Color(0xFFB2070F);    // Darker shade
+  // --- Premium Red & Black Palette ---
+  static const Color pureBlack = Color(0xFF000000); // Background
+  static const Color darkSurface = Color(0xFF0A0A0A); // Primary Surface
+  static const Color darkSurfaceVariant = Color(0xFF161616); // Secondary Surface
+  static const Color livoraRed = Color(0xFFE50914); // Primary Red (Netflix-style vibrant)
+  static const Color pureWhite = Color(0xFFFFFFFF); // Text/Contrast
+  static const Color softGrey = Color(0xFFB3B3B3); // Secondary Text
+  static const Color mediumGrey = Color(0xFF666666); // Subtle Text
+  static const Color borderSubtle = Color(0xFF262626); // Outlines
   
-  // Neutral Colors
-  static const Color pureWhite = Colors.white;
-  static const Color pureBlack = Colors.black;
-  static const Color darkCharcoal = Color(0xFF121212); // Main Dark Background
-  static const Color darkSurface = Color(0xFF1E1E1E);  // Cards/Sheets
-  static const Color greyText = Color(0xFFB0B0B0);
-  static const Color lightGrey = Color(0xFFF5F5F5);
+  // Light Mode Equivalents (though the app is trending dark-first)
+  static const Color background = pureBlack;
+  static const Color surface = darkSurface;
+  static const Color surfaceVariant = darkSurfaceVariant;
+  
+  // --- Semantic Colors ---
+  static const Color success = Color(0xFF2ECC71); 
+  static const Color error = livoraRed;   
+  static const Color warning = Color(0xFFF1C40F); 
+  static const Color info = Color(0xFF3498DB);    
 
-  // Mappings
+  // --- Mappings for AppTheme ---
   static const Color primary = livoraRed;
-  static const Color secondary = deepRed;
+  static const Color secondary = softGrey;
+  static const Color divider = borderSubtle;
+  static const Color darkDivider = borderSubtle;
   
-  static const Color background = pureWhite;
-  static const Color surface = pureWhite;
+  static const Color textPlaceholder = mediumGrey;
+  static const Color lightGrey = softGrey;
   
-  static const Color textPrimary = darkCharcoal;
-  static const Color textSecondary = greyText;
-  static const Color iconColor = darkCharcoal;
-  static const Color divider = Color(0xFFE0E0E0);
-
-  // Dark Mode Palette
-  static const Color darkBackground = darkCharcoal;
-  static const Color darkSurfaceVariant = Color(0xFF2C2C2C);
-  
+  // Legacy aliases to avoid breaking existing code immediately
+  static const Color primaryBrand = pureWhite;
+  static const Color secondaryBrand = softGrey;
+  static const Color accentBrand = pureWhite;
+  static const Color darkBackground = pureBlack;
   static const Color darkTextPrimary = pureWhite;
-  static const Color darkTextSecondary = greyText;
-  static const Color darkDivider = Color(0xFF333333);
-
+  static const Color darkTextSecondary = softGrey;
+  static const Color textPrimary = pureWhite;
+  static const Color textSecondary = softGrey;
 }

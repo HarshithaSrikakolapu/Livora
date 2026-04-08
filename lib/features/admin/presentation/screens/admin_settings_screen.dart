@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/core/theme/color_palette.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
 
 class AdminSettingsScreen extends ConsumerStatefulWidget {
-  const AdminSettingsScreen({Key? key}) : super(key: key);
+  const AdminSettingsScreen({super.key});
 
   @override
   ConsumerState<AdminSettingsScreen> createState() => _AdminSettingsScreenState();
@@ -55,6 +56,7 @@ class _AdminSettingsScreenState extends ConsumerState<AdminSettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Admin Settings'),
       ),
@@ -64,7 +66,7 @@ class _AdminSettingsScreenState extends ConsumerState<AdminSettingsScreen> {
             padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Text(
               'System Configuration',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorPalette.softGrey),
             ),
           ),
           SwitchListTile(
@@ -92,7 +94,7 @@ class _AdminSettingsScreenState extends ConsumerState<AdminSettingsScreen> {
             padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Text(
               'Communication',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorPalette.softGrey),
             ),
           ),
           ListTile(
@@ -108,12 +110,12 @@ class _AdminSettingsScreenState extends ConsumerState<AdminSettingsScreen> {
             padding: EdgeInsets.fromLTRB(16, 16, 16, 8),
             child: Text(
               'Account',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.grey),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: ColorPalette.softGrey),
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.logout, color: Colors.red),
-            title: const Text('Log Out', style: TextStyle(color: Colors.red)),
+            leading: const Icon(Icons.logout, color: ColorPalette.softGrey),
+            title: const Text('Log Out', style: TextStyle(color: ColorPalette.softGrey)),
             onTap: () {
                ref.read(firebaseAuthNotifierProvider.notifier).logout();
                // Router will handle redirect

@@ -1,6 +1,6 @@
-import '../../domain/entities/organization.dart';
-import '../../domain/repositories/organization_repository.dart';
-import '../datasources/organization_remote_data_source.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
+import 'package:Livora/features/organizations/domain/repositories/organization_repository.dart';
+import 'package:Livora/features/organizations/data/datasources/organization_remote_data_source.dart';
 
 class OrganizationRepositoryImpl implements OrganizationRepository {
   final OrganizationRemoteDataSource remoteDataSource;

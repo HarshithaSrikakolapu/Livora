@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../providers/organization_providers.dart';
+import 'package:Livora/features/organizations/presentation/providers/organization_providers.dart';
 import 'org_profile_screen.dart';
 import 'edit_org_profile_screen.dart';
-import '../../domain/entities/organization.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../../auth/presentation/providers/auth_state.dart';
-import '../../../../core/widgets/animated_widgets.dart';
-import '../../../../core/theme/color_palette.dart';
-import '../../../../core/widgets/app_button.dart';
+import 'package:Livora/features/organizations/domain/entities/organization.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
+import 'package:Livora/core/widgets/animated_widgets.dart';
+import 'package:Livora/core/theme/color_palette.dart';
+import 'package:Livora/core/widgets/app_button.dart';
 
 class MyOrganizationScreen extends ConsumerWidget {
-  const MyOrganizationScreen({Key? key}) : super(key: key);
+  const MyOrganizationScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,7 +31,9 @@ class MyOrganizationScreen extends ConsumerWidget {
           
           final authState = ref.watch(firebaseAuthNotifierProvider);
           if (authState is! Authenticated) {
-            return const Scaffold(body: Center(child: Text('Not authenticated')));
+            return const Scaffold(
+              backgroundColor: Colors.transparent,
+              body: Center(child: Text('Not authenticated')));
           }
           
           // Create dummy org for creation
@@ -46,6 +48,7 @@ class MyOrganizationScreen extends ConsumerWidget {
           );
           
           return Scaffold(
+            backgroundColor: Colors.transparent,
             appBar: AppBar(
               title: const Text('Setup Organization'),
               leading: IconButton(
@@ -64,7 +67,7 @@ class MyOrganizationScreen extends ConsumerWidget {
                        'Welcome!',
                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                          fontWeight: FontWeight.bold,
-                         color: Theme.of(context).colorScheme.onBackground,
+                         color: Theme.of(context).colorScheme.onSurface,
                        ),
                      ),
                      const SizedBox(height: 8),
@@ -109,8 +112,12 @@ class MyOrganizationScreen extends ConsumerWidget {
           );
         }
       },
-      loading: () => const Scaffold(body: Center(child: CircularProgressIndicator())),
-      error: (err, stack) => Scaffold(body: Center(child: Text('Error: $err'))),
+      loading: () => const Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(child: CircularProgressIndicator())),
+      error: (err, stack) => Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(child: Text('Error: $err'))),
     );
   }
 }

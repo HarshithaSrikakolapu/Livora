@@ -1,30 +1,35 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../organizations/presentation/providers/organization_providers.dart';
-import '../../../organizations/presentation/screens/org_profile_screen.dart';
-import '../../../../core/widgets/animated_widgets.dart';
-import '../../../../core/theme/color_palette.dart';
+import 'package:Livora/core/theme/color_palette.dart';
+import 'package:Livora/features/organizations/presentation/providers/organization_providers.dart';
+import 'package:Livora/features/organizations/presentation/screens/org_profile_screen.dart';
+import 'package:Livora/core/widgets/animated_widgets.dart';
 
 class LiveWallWidget extends ConsumerWidget {
-  const LiveWallWidget({Key? key}) : super(key: key);
+  const LiveWallWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final liveOrgsAsync = ref.watch(liveOrganizationsProvider);
+    final theme = Theme.of(context);
 
+    // Filter logic can also be in provider, assuming provider returns only live orgs
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
           child: Row(
             children: [
-              const PulsingDot(color: ColorPalette.primary, size: 10),
+               const PulsingDot(color: Colors.white, size: 8),
               const SizedBox(width: 8),
               Text(
                 'Live Now',
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
+                      letterSpacing: 0.5,
                       color: Colors.white,
                     ),
               ),
@@ -32,23 +37,26 @@ class LiveWallWidget extends ConsumerWidget {
           ),
         ),
         SizedBox(
-          height: 140,
+          height: 130, // Adjusted height
           child: liveOrgsAsync.when(
             data: (orgs) {
               if (orgs.isEmpty) {
                 return Center(
-                  child: Text(
-                    'No live events right now',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey,
-                        ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      'No live events right now',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.disabledColor,
+                          ),
+                    ),
                   ),
                 );
               }
               return StaggeredList(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: orgs.length,
                 itemBuilder: (context, index) {
                   final org = orgs[index];
@@ -61,50 +69,85 @@ class LiveWallWidget extends ConsumerWidget {
                       );
                     },
                     child: Container(
-                      width: 100,
-                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      width: 85,
+                      margin: const EdgeInsets.symmetric(horizontal: 6),
                       child: Column(
                         children: [
-                          PulsingBadge(
-                            glowColor: ColorPalette.deepRed,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(color: ColorPalette.primary, width: 2),
-                              ),
-                              child: CircleAvatar(
-                                radius: 35,
-                                backgroundColor: const Color(0xFF2C2F36), // Darker grey
-                                child: Text(
-                                  org.name.isNotEmpty ? org.name.substring(0, 1).toUpperCase() : '?',
-                                  style: const TextStyle(
-                                    fontSize: 24, 
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              // Border Ring
+                              Container(
+                                width: 70,
+                                height: 70,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: ColorPalette.livoraRed.withOpacity(0.5), 
+                                    width: 2.0
                                   ),
                                 ),
                               ),
-                            ),
+                              // Avatar
+                              Container(
+                                width: 62,
+                                height: 62,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: theme.disabledColor.withOpacity(0.1),
+                                  image: org.logoUrl != null 
+                                      ? DecorationImage(
+                                          image: NetworkImage(org.logoUrl!),
+                                          fit: BoxFit.cover,
+                                        )
+                                      : null,
+                                ),
+                                child: org.logoUrl == null
+                                    ? Center(
+                                        child: Text(
+                                          org.name.substring(0, 1).toUpperCase(),
+                                          style: TextStyle(
+                                            fontSize: 22, 
+                                            fontWeight: FontWeight.bold,
+                                            color: theme.primaryColor,
+                                          ),
+                                        ),
+                                      )
+                                    : null,
+                              ),
+                              // Live Label
+                              Positioned(
+                                bottom: -2,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(color: ColorPalette.livoraRed, width: 1.5),
+                                    boxShadow: [
+                                       BoxShadow(color: ColorPalette.livoraRed.withOpacity(0.4), blurRadius: 4),
+                                    ],
+                                  ),
+                                  child: const Text(
+                                    'LIVE',
+                                    style: TextStyle(
+                                      color: Colors.white, 
+                                      fontSize: 9, 
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           const SizedBox(height: 8),
                           Text(
                             org.name,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(fontSize: 12, color: Colors.white70),
+                            style: theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w600),
                             textAlign: TextAlign.center,
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 4),
-                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                            decoration: BoxDecoration(
-                              color: ColorPalette.deepRed, // Using a consistent "Live" color     
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: const Text(
-                              'LIVE',
-                              style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-                            ),
                           ),
                         ],
                       ),
@@ -114,7 +157,7 @@ class LiveWallWidget extends ConsumerWidget {
               );
             },
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (err, stack) => Center(child: Text('Error: $err')),
+            error: (err, stack) => Center(child: Text('Error')),
           ),
         ),
       ],

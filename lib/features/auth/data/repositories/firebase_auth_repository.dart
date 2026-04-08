@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/entities/user.dart';
-import '../services/firebase_auth_service.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart';
+import 'package:Livora/features/auth/data/services/firebase_auth_service.dart';
 
 class FirebaseAuthRepository {
   final FirebaseAuthService _authService;

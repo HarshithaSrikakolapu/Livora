@@ -35,10 +35,10 @@ class User {
     return User(
       id: id,
       email: data['email'] as String,
-      fullName: data['fullName'] as String,
+      fullName: (data['fullName'] ?? data['name'] ?? '') as String,
       role: data['role'] as String? ?? 'user',
       phone: data['phone'] as String?,
-      avatarUrl: data['avatarUrl'] as String?,
+      avatarUrl: (data['avatarUrl'] ?? data['profile_photo']) as String?,
       bio: data['bio'] as String?,
       coverImageUrl: data['coverImageUrl'] as String?,
       stats: Map<String, int>.from(data['stats'] ?? {}),
@@ -47,6 +47,42 @@ class User {
       createdAt: (data['createdAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
       favoriteOrgs: List<String>.from(data['favorite_orgs'] ?? []),
     );
+  }
+  
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as String? ?? json['userId'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      fullName: json['fullName'] as String? ?? '',
+      role: json['role'] as String? ?? 'user',
+      phone: json['phone'] as String?,
+      avatarUrl: json['avatarUrl'] as String? ?? json['profile_image'] as String?,
+      bio: json['bio'] as String?,
+      coverImageUrl: json['coverImageUrl'] as String?,
+      stats: json['stats'] != null ? Map<String, int>.from(json['stats']) : const {'postsCount': 0, 'followersCount': 0, 'followingCount': 0},
+      isApproved: json['isApproved'] as bool? ?? true,
+      isActive: json['isActive'] as bool? ?? true,
+      createdAt: json['createdAt'] != null ? DateTime.parse(json['createdAt']) : DateTime.now(),
+      favoriteOrgs: json['favorite_orgs'] != null ? List<String>.from(json['favorite_orgs']) : const [],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'fullName': fullName,
+      'role': role,
+      'phone': phone,
+      'avatarUrl': avatarUrl,
+      'bio': bio,
+      'coverImageUrl': coverImageUrl,
+      'stats': stats,
+      'isApproved': isApproved,
+      'isActive': isActive,
+      'createdAt': createdAt.toIso8601String(),
+      'favorite_orgs': favoriteOrgs,
+    };
   }
   
   Map<String, dynamic> toFirestore() {
@@ -65,6 +101,7 @@ class User {
       'favorite_orgs': favoriteOrgs,
     };
   }
+
   
   User copyWith({
     String? id,

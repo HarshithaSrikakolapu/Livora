@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.edirectory" "\0"
-            VALUE "FileDescription", "edirectory_app" "\0"
+            VALUE "FileDescription", "livora" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "edirectory_app" "\0"
+            VALUE "InternalName", "livora" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.edirectory. All rights reserved." "\0"
-            VALUE "OriginalFilename", "edirectory_app.exe" "\0"
-            VALUE "ProductName", "edirectory_app" "\0"
+            VALUE "OriginalFilename", "livora.exe" "\0"
+            VALUE "ProductName", "livora" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

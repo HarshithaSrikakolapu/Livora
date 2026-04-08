@@ -1,5 +1,5 @@
 
-import '../repositories/social_repository.dart';
+import 'package:Livora/features/social/domain/repositories/social_repository.dart';
 
 class ToggleLikePost {
   final SocialRepository repository;

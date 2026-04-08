@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/social_providers.dart';
-import '../widgets/user_avatar.dart';
+import 'package:Livora/features/social/presentation/providers/social_providers.dart';
+import 'package:Livora/features/social/presentation/widgets/user_avatar.dart';
 import 'user_profile_screen.dart';
-import '../../domain/entities/relationship.dart';
+import 'package:Livora/features/social/domain/entities/relationship.dart';
 
 class ConnectionsScreen extends ConsumerStatefulWidget {
-  const ConnectionsScreen({Key? key}) : super(key: key);
+  const ConnectionsScreen({super.key});
 
   @override
   ConsumerState<ConnectionsScreen> createState() => _ConnectionsScreenState();
@@ -31,6 +31,7 @@ class _ConnectionsScreenState extends ConsumerState<ConnectionsScreen> with Sing
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('My Network'),
         bottom: TabBar(
@@ -53,7 +54,7 @@ class _ConnectionsScreenState extends ConsumerState<ConnectionsScreen> with Sing
 }
 
 class _RequestsList extends ConsumerWidget {
-  const _RequestsList({Key? key}) : super(key: key);
+  const _RequestsList();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -114,7 +115,7 @@ class _RequestsList extends ConsumerWidget {
 }
 
 class _ConnectionsList extends ConsumerWidget {
-  const _ConnectionsList({Key? key}) : super(key: key);
+  const _ConnectionsList();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../data/datasources/profile_remote_data_source.dart';
-import '../../data/repositories/profile_repository_impl.dart';
-import '../../domain/entities/user_profile.dart';
-import '../../domain/repositories/profile_repository.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../../auth/presentation/providers/auth_state.dart';
-import '../../../organizations/presentation/providers/organization_providers.dart';
+import 'package:Livora/features/profile/data/datasources/profile_remote_data_source.dart';
+import 'package:Livora/features/profile/data/repositories/profile_repository_impl.dart';
+import 'package:Livora/features/profile/domain/entities/user_profile.dart';
+import 'package:Livora/features/profile/domain/repositories/profile_repository.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
+import 'package:Livora/features/organizations/presentation/providers/organization_providers.dart';
 
 // Data Source
 final profileRemoteDataSourceProvider = Provider<ProfileRemoteDataSource>((ref) {

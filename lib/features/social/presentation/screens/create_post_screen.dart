@@ -1,17 +1,14 @@
-
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import '../../domain/entities/post.dart';
-import '../providers/social_providers.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../../auth/presentation/providers/auth_state.dart';
+import 'package:Livora/features/social/domain/entities/post.dart';
+import 'package:Livora/features/social/presentation/providers/social_providers.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
 
 class CreatePostScreen extends ConsumerStatefulWidget {
-  const CreatePostScreen({Key? key}) : super(key: key);
+  const CreatePostScreen({super.key});
 
   @override
   ConsumerState<CreatePostScreen> createState() => _CreatePostScreenState();
@@ -22,7 +19,6 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   final ImagePicker _picker = ImagePicker();
   
   Uint8List? _imageBytes;
-  File? _imageFile; // Needed for upload usecase which expects File
   String? _fileName;
   bool _isLoading = false;
 
@@ -38,29 +34,8 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
       if (image != null) {
         final bytes = await image.readAsBytes();
         
-        // Save to temp file for File object (assuming web might need different handling but mobile needs File)
-        // For 'flutter run -d chrome', File object from dart:io might not work directly or works differently.
-        // The UploadPostImage UseCase expects 'File'. 
-        // If we are on web, 'File' from dart:io works but path is blob.
-        // Let's rely on standard ImagePicker cross-platform behavior where possible.
-        // But for consistency with UseCase definition (Future<String> call(File file, String path)), we should provide a File.
-        // If web, XFile.path is blob url.
-        // Let's assume we are running on standard environment or handle bytes if needed.
-        // Actually the repository implementation uses putData (for bytes) or putFile (for File).
-        // My implementation in SocialRemoteDataSource uses 'putFile(File)'. 
-        // This will FAIL on Web. I should have checked platform.
-        // But the constraint says "Do not change Firebase project structure".
-        // I should stick to what works. Ideally I'd update UseCase to take XFile or Uint8List.
-        // I will workaround:
-        // On Web, creating a File is tricky. 
-        // I will blindly cast for now or update Repository to handle what I pass.
-        // Actually, let's just pass `File(image.path)` and hope the underlying library handles it (it usually doesn't on web).
-        // Since I'm "Senior Product Engineer", I should catch this.
-        // I will update the code to use the bytes for display but try to use File for upload.
-        
         setState(() {
           _imageBytes = bytes;
-          _imageFile = File(image.path);
           _fileName = image.name;
         });
       }
@@ -70,7 +45,6 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   }
 
   Future<void> _sharePost() async {
-    // Basic validation: Must have Image OR Text
     if (_imageBytes == null && _captionController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please add an image or text')),
@@ -88,15 +62,11 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
     try {
       String imageUrl = '';
       
-      // 1. Upload Image if present
-      // Note: This might fail on Web if using File(path).
-      // Ideally we update UseCase to accept XFile or bytes.
-      if (_imageFile != null) {
+      if (_imageBytes != null) {
          final uploadImage = ref.read(uploadPostImageProvider);
-         imageUrl = await uploadImage(_imageFile!, _fileName ?? 'post.jpg');
+         imageUrl = await uploadImage(_imageBytes!, _fileName ?? 'post.jpg');
       }
       
-      // 2. Create Post Object
       final createPost = ref.read(createPostProvider);
       
       final newPost = Post(
@@ -104,7 +74,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
         userId: authState.user.id,
         userName: authState.user.fullName,
         userAvatar: authState.user.avatarUrl,
-        type: imageUrl.isNotEmpty ? PostType.image : PostType.image, // Defaulting type
+        type: imageUrl.isNotEmpty ? PostType.image : PostType.image, 
         mediaUrl: imageUrl,
         caption: _captionController.text.trim(),
         createdAt: DateTime.now(),
@@ -119,7 +89,6 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
         Navigator.pop(context);
       }
     } catch (e) {
-       // On Web this will likely error if using File.
        if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $e')),
@@ -137,6 +106,7 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Create Post'),
         actions: [
@@ -152,7 +122,6 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // User Header (for context)
             Consumer(builder: (context, ref, _) {
               final authState = ref.watch(firebaseAuthNotifierProvider);
               if (authState is Authenticated) {
@@ -171,7 +140,6 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
             }),
             const SizedBox(height: 16),
           
-            // Caption
             TextField(
               controller: _captionController,
               decoration: const InputDecoration(
@@ -184,7 +152,6 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
             ),
             const SizedBox(height: 16),
             
-            // Image Picker Area
             GestureDetector(
               onTap: _pickImage,
               child: Container(
@@ -219,3 +186,4 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
     );
   }
 }
+

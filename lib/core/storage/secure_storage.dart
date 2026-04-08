@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../config/app_config.dart';
+import 'package:Livora/core/config/app_config.dart';
 
 class SecureStorage {
   final FlutterSecureStorage _storage;
@@ -30,6 +30,15 @@ class SecureStorage {
   Future<String?> getUserData() async {
     return await _storage.read(key: AppConfig.userDataKey);
   }
+
+  Future<void> saveUserId(String userId) async {
+    await _storage.write(key: AppConfig.userIdKey, value: userId);
+  }
+
+  Future<void> saveUserRole(String role) async {
+    await _storage.write(key: AppConfig.userRoleKey, value: role);
+  }
+
   
   Future<void> deleteTokens() async {
     await _storage.delete(key: AppConfig.accessTokenKey);

@@ -5,11 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../../core/services/storage_service.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../../auth/presentation/providers/auth_state.dart';
+import 'package:Livora/core/services/storage_service.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
 
-import '../../../../core/theme/theme_provider.dart';
+import 'package:Livora/core/theme/theme_provider.dart';
+import 'package:Livora/features/social/presentation/providers/social_providers.dart';
+import 'package:Livora/features/profile/presentation/providers/profile_providers.dart';
 
 class EditProfileScreen extends ConsumerStatefulWidget {
 
@@ -17,7 +19,7 @@ class EditProfileScreen extends ConsumerStatefulWidget {
 
 
 
-  const EditProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({super.key});
 
   @override
   ConsumerState<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -41,7 +43,12 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       final user = authState.user;
       _nameController = TextEditingController(text: user.fullName);
       _bioController = TextEditingController(text: user.bio ?? '');
-      _phoneController = TextEditingController(text: user.phone ?? '');
+      
+      String initialPhone = user.phone ?? '';
+      if (initialPhone.startsWith('+91')) {
+        initialPhone = initialPhone.substring(3);
+      }
+      _phoneController = TextEditingController(text: initialPhone);
       _completePhoneNumber = user.phone;
     } else {
       // Should not happen if guarded
@@ -75,6 +82,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     if (!_formKey.currentState!.validate()) return;
     
     setState(() => _isLoading = true);
+    bool imageUploadFailed = false;
     
     try {
       final authState = ref.read(firebaseAuthNotifierProvider);
@@ -85,20 +93,24 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
       
       // 1. Upload new image if selected
       if (_newImageBytes != null) {
-        print('Starting image upload...');
-        final storage = ref.read(storageServiceProvider);
-        avatarUrl = await storage.uploadImage(
-          pathOrName: 'avatar_${user.id}.jpg',
-          data: _newImageBytes!,
-          folder: 'avatars',
-        ).timeout(const Duration(seconds: 15), onTimeout: () {
-          throw Exception('Image upload timed out. Check your internet or storage rules.');
-        });
-        print('Image uploaded: $avatarUrl');
+        debugPrint('DEBUG: Starting image upload...');
+        try {
+          final storage = ref.read(storageServiceProvider);
+          avatarUrl = await storage.uploadImage(
+            pathOrName: 'avatar_${user.id}.jpg',
+            data: _newImageBytes!,
+            folder: 'avatars',
+          ).timeout(const Duration(seconds: 15));
+          debugPrint('DEBUG: Image uploaded successfully: $avatarUrl');
+        } catch (e) {
+          debugPrint('DEBUG: Image upload failed but continuing with profile update: $e');
+          imageUploadFailed = true;
+          // We don't rethrow here so that bio/name can still be saved
+        }
       }
       
       // 2. Update Firestore
-      print('Updating Firestore...');
+      debugPrint('DEBUG: Updating Firestore for user: ${user.id}');
       final updates = {
         'fullName': _nameController.text.trim(),
         'bio': _bioController.text.trim(),
@@ -106,25 +118,43 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
         'avatarUrl': avatarUrl,
         'updatedAt': FieldValue.serverTimestamp(),
       };
+      debugPrint('DEBUG: Update data: $updates');
       
       await FirebaseFirestore.instance
           .collection('users')
           .doc(user.id)
           .update(updates)
           .timeout(const Duration(seconds: 10));
-      print('Firestore updated.');
+      debugPrint('DEBUG: Firestore update successful');
       
-      // 3. Refresh Local State
-      await ref.read(firebaseAuthNotifierProvider.notifier).checkAuthStatus(); // Refresh provider
+      // 3. Refresh Local State & Invalidate Providers
+      await ref.read(firebaseAuthNotifierProvider.notifier).refreshUser();
+      
+      // Invalidate both features' providers to ensure total UI consistency
+      ref.invalidate(currentUserProfileProvider);
+      ref.invalidate(userProfileFamilyProvider(user.id));
+      ref.invalidate(userProfileFutureProvider(user.id));
       
       if (mounted) {
+        String message = 'Profile updated successfully!';
+        if (imageUploadFailed) {
+          message = 'Profile saved, but image upload timed out. Check Storage rules/CORS.';
+        }
+        
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Profile updated successfully!')),
+          SnackBar(
+            content: Text(message),
+            backgroundColor: imageUploadFailed ? Colors.orange : Colors.green,
+            duration: const Duration(seconds: 4),
+          ),
         );
-        Navigator.of(context).pop(); // Explicit pop
+        
+        if (!imageUploadFailed) {
+          Navigator.of(context).pop();
+        }
       }
     } catch (e) {
-      print('Error updating profile: $e');
+      debugPrint('DEBUG: Error updating profile: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
@@ -146,6 +176,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
     final user = authState.user;
     
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Edit Profile'),
         actions: [
@@ -250,12 +281,11 @@ class _ThemeOption extends StatelessWidget {
   final VoidCallback onTap;
 
   const _ThemeOption({
-    Key? key,
     required this.label,
     required this.icon,
     required this.isSelected,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

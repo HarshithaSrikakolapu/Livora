@@ -1,11 +1,10 @@
-
-import 'dart:io';
-import 'package:edirectory_app/features/social/data/datasources/social_remote_data_source.dart';
-import 'package:edirectory_app/features/social/domain/entities/post.dart';
-import 'package:edirectory_app/features/social/domain/entities/comment.dart'; // Import
-import 'package:edirectory_app/features/social/domain/entities/relationship.dart';
-import 'package:edirectory_app/features/auth/domain/entities/user.dart';
-import '../../domain/repositories/social_repository.dart';
+import 'dart:typed_data';
+import 'package:Livora/features/social/data/datasources/social_remote_data_source.dart';
+import 'package:Livora/features/social/domain/entities/post.dart';
+import 'package:Livora/features/social/domain/entities/comment.dart';
+import 'package:Livora/features/social/domain/entities/relationship.dart';
+import 'package:Livora/features/auth/domain/entities/user.dart';
+import 'package:Livora/features/social/domain/repositories/social_repository.dart';
 
 class SocialRepositoryImpl implements SocialRepository {
   final SocialRemoteDataSource _remoteDataSource;
@@ -16,7 +15,10 @@ class SocialRepositoryImpl implements SocialRepository {
   Future<void> createPost(Post post) async {
     return _remoteDataSource.createPost(post);
   }
-
+  @override
+Future<void> removeConnection(String currentUserId, String targetUserId) {
+  return _remoteDataSource.removeConnection(currentUserId, targetUserId);
+}
   @override
   Future<void> deletePost(String postId) async {
     return _remoteDataSource.deletePost(postId);
@@ -24,26 +26,17 @@ class SocialRepositoryImpl implements SocialRepository {
 
   @override
   Future<void> likePost(String postId, String userId) {
-    if (_remoteDataSource is SocialRemoteDataSourceImpl) {
-       return (_remoteDataSource as SocialRemoteDataSourceImpl).likePost(postId, userId);
-    }
-    throw UnimplementedError();
+    return _remoteDataSource.likePost(postId, userId);
   }
 
   @override
   Future<void> addComment(String postId, String text, String userId, String userName, String? userAvatar) {
-    if (_remoteDataSource is SocialRemoteDataSourceImpl) {
-      return (_remoteDataSource as SocialRemoteDataSourceImpl).addComment(postId, text, userId, userName, userAvatar);
-    }
-    throw UnimplementedError();
+    return _remoteDataSource.addComment(postId, text, userId, userName, userAvatar);
   }
 
   @override
   Stream<List<Comment>> getComments(String postId) {
-    if (_remoteDataSource is SocialRemoteDataSourceImpl) {
-      return (_remoteDataSource as SocialRemoteDataSourceImpl).getComments(postId);
-    }
-    return Stream.value([]);
+    return _remoteDataSource.getComments(postId);
   }
 
   @override
@@ -57,8 +50,8 @@ class SocialRepositoryImpl implements SocialRepository {
   }
 
   @override
-  Future<String> uploadPostImage(File file, String path) {
-    return _remoteDataSource.uploadPostImage(file, path);
+  Future<String> uploadPostImage(Uint8List data, String fileName) {
+    return _remoteDataSource.uploadPostImage(data, fileName);
   }
 
   @override
@@ -68,14 +61,9 @@ class SocialRepositoryImpl implements SocialRepository {
 
   @override
   Future<void> acceptConnectionRequest(String currentUserId, String fromUserId) {
-    // In strict schema, accepting usually means moving from requests to friends.
-    // The previous implementation was: Future<void> acceptRequest(String requestId)
-    // The data source has: acceptRequest(String currentUserId, String fromUserId)
-    // We cast implementation specific calls here.
     if (_remoteDataSource is SocialRemoteDataSourceImpl) {
-       return (_remoteDataSource as SocialRemoteDataSourceImpl).acceptRequest(currentUserId, fromUserId);
+       return (_remoteDataSource).acceptRequest(currentUserId, fromUserId);
     } else {
-        // Fallback or error if using a different implementation mock
         throw UnimplementedError('DataSource does not support acceptRequest with 2 args');
     }
   }
@@ -109,3 +97,4 @@ class SocialRepositoryImpl implements SocialRepository {
     return _remoteDataSource.updateUserProfile(user.id, user.toFirestore());
   }
 }
+

@@ -2,16 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:edirectory_app/features/social/presentation/providers/social_providers.dart';
-import 'package:edirectory_app/features/auth/presentation/providers/firebase_auth_notifier.dart';
-import 'package:edirectory_app/features/auth/presentation/providers/auth_state.dart';
-import 'package:edirectory_app/features/social/domain/repositories/social_repository.dart';
-import '../../../../core/theme/color_palette.dart';
+import 'package:Livora/features/social/presentation/providers/social_providers.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
+import 'package:Livora/features/social/domain/repositories/social_repository.dart';
+import 'package:Livora/core/theme/color_palette.dart';
 
 class CommentsSheet extends ConsumerStatefulWidget {
   final String postId;
 
-  const CommentsSheet({Key? key, required this.postId}) : super(key: key);
+  const CommentsSheet({super.key, required this.postId});
 
   @override
   ConsumerState<CommentsSheet> createState() => _CommentsSheetState();
@@ -124,14 +124,14 @@ class _CommentsSheetState extends ConsumerState<CommentsSheet> {
                             radius: 16,
                             backgroundColor: isDark 
                               ? theme.colorScheme.surface 
-                              : ColorPalette.lightGrey, // Use pale yellow only in light mode for contrast
+                              : ColorPalette.softGrey, 
                             backgroundImage: comment.userAvatar != null ? NetworkImage(comment.userAvatar!) : null,
                             child: comment.userAvatar == null 
                                 ? Text(
                                     comment.userName[0].toUpperCase(), 
                                     style: TextStyle(
                                       fontSize: 12, 
-                                      color: theme.colorScheme.primary
+                                      color: ColorPalette.pureWhite
                                     ),
                                   ) 
                                 : null,

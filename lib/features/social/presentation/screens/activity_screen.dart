@@ -1,21 +1,22 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/social_providers.dart';
-import '../../domain/entities/relationship.dart';
-import '../../../auth/presentation/providers/firebase_auth_notifier.dart';
-import '../../../auth/presentation/providers/auth_state.dart';
-import '../../../../core/theme/color_palette.dart';
-import '../../../../core/widgets/animated_widgets.dart';
+import 'package:Livora/features/social/presentation/providers/social_providers.dart';
+import 'package:Livora/features/social/domain/entities/relationship.dart';
+import 'package:Livora/features/auth/presentation/providers/firebase_auth_notifier.dart';
+import 'package:Livora/features/auth/presentation/providers/auth_state.dart';
+import 'package:Livora/core/theme/color_palette.dart';
+import 'package:Livora/core/widgets/animated_widgets.dart';
 
 class ActivityScreen extends ConsumerWidget {
-  const ActivityScreen({Key? key}) : super(key: key);
+  const ActivityScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pendingRequestsAsync = ref.watch(pendingRequestsStreamProvider);
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text('Activity'),
       ),
@@ -55,7 +56,7 @@ class ActivityScreen extends ConsumerWidget {
 
 class _RequestTile extends ConsumerStatefulWidget {
   final Relationship request;
-  const _RequestTile({Key? key, required this.request}) : super(key: key);
+  const _RequestTile({required this.request});
 
   @override
   ConsumerState<_RequestTile> createState() => _RequestTileState();
